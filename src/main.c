@@ -25,11 +25,12 @@ int main(void)
 
 		// Attach the buffer to the RDP
 		rdpq_attach(disp, zbuf);
+
+		intro_draw();
+
 		rdpq_text_printf(NULL, 1, 20, 20,
 			"Hello world!"
 		);
-
-		intro_draw();
 
 		// Send frame buffer to display (TV)
 		rdpq_detach_show();
