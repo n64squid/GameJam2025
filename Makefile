@@ -33,7 +33,7 @@ MKFONT_FLAGS=--outline 1
 
 include $(N64_INST)/include/n64.mk
 
-all: $(GAME).z64 PAD_ROM GEN_CRC
+all: $(GAME).z64
 .PHONY: all
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(notdir $(subst .c,.o,$(wildcard $(SOURCE_DIR)/*.c))))

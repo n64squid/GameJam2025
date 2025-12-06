@@ -1,5 +1,6 @@
-#include "main.h"
 #include <libdragon.h>
+#include "main.h"
+#include "intro.h"
 
 int main(void)
 {
@@ -8,6 +9,7 @@ int main(void)
 	dfs_init(DFS_DEFAULT_LOCATION);
 	rdpq_init();
 	joypad_init();
+	intro_init();
 
 	// Register the default font
 	rdpq_font_t *fnt1 = rdpq_font_load_builtin(FONT_BUILTIN_DEBUG_MONO);
@@ -26,6 +28,8 @@ int main(void)
 		rdpq_text_printf(NULL, 1, 20, 20,
 			"Hello world!"
 		);
+
+		intro_draw();
 
 		// Send frame buffer to display (TV)
 		rdpq_detach_show();
