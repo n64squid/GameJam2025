@@ -5,6 +5,7 @@ BUILD_DIR=build
 FILESYSTEM_DIR=filesystem
 IMAGE_DIR=assets/images
 FONTS_DIR=assets/fonts
+AUDIO_DIR=assets/audio
 MODELS_DIR=assets/models
 
 # Images
@@ -20,6 +21,13 @@ FONTS_FILESYSTEM=$(FILESYSTEM_DIR)/fonts
 FONTS_FILES=$(wildcard $(FONTS_DIR)/*.ttf)
 FONTS_FONTS64=$(subst assets,filesystem,$(FONTS_FILES:.ttf=.font64))
 
+# Audio
+AUDIO_FILESYSTEM=$(FILESYSTEM_DIR)/audio
+AUDIO_WAV_FILES=$(wildcard $(AUDIO_DIR)/*.wav)
+AUDIO_WAV_WAV64=$(subst assets,filesystem,$(AUDIO_WAV_FILES:.wav=.wav64))
+AUDIO_MP3_FILES=$(wildcard $(AUDIO_DIR)/*.mp3)
+AUDIO_MP3_WAV64=$(subst assets,filesystem,$(AUDIO_MP3_FILES:.mp3=.wav64))
+
 # Models
 MODELS_FILESYSTEM=$(FILESYSTEM_DIR)/models
 MODELS_FILES=$(wildcard $(MODELS_DIR)/*.blend)
@@ -33,7 +41,7 @@ MKFONT_FLAGS=--outline 1
 
 include $(N64_INST)/include/n64.mk
 
-all: $(GAME).z64 PAD_ROM GEN_CRC
+all: $(GAME).z64
 .PHONY: all
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(notdir $(subst .c,.o,$(wildcard $(SOURCE_DIR)/*.c))))
@@ -44,6 +52,20 @@ $(IMAGE_FILESYSTEM)/%.sprite: $(IMAGE_DIR)/%.png
 	@echo "    [SPRITE] $@"
 	$(N64_MKSPRITE) $(MKSPRITE_FLAGS) -o $(dir $@) $<
 
+# Rules for audio
+AVANTO_AUDIOCONV_FLAGS += --wav-mono  --wav-resample 22050
+$(AUDIO_FILESYSTEM)/%.wav64: $(AUDIO_DIR)/%.mp3
+	@mkdir -p $(dir $@)
+	@echo "    [MP3 SFX] $@"
+	$(N64_AUDIOCONV) $(AVANTO_AUDIOCONV_FLAGS) -o $(dir $@) "$<"
+
+
+$(AUDIO_FILESYSTEM)/%.wav64: $(AUDIO_DIR)/%.wav
+	@mkdir -p $(dir $@)
+	@echo "    [MP3 SFX] $@"
+	$(N64_AUDIOCONV) $(AVANTO_AUDIOCONV_FLAGS) -o $(dir $@) "$<"
+
+# Rules for 3D models
 $(MODELS_FILESYSTEM)/%.sprite: $(MODELS_DIR)/%.png
 	@mkdir -p $(dir $@)
 	@echo "    [MODEL_SPRITE] $@"
@@ -96,8 +118,9 @@ GEN_CRC: $(GAME).z64
 # Complete compiling
 $(IMAGE_FILESYSTEM): $(ASEPRITE_PNGS) $(IMAGE_SPRITES)
 $(FONTS_FILESYSTEM): $(FONTS_FONTS64)
+$(AUDIO_FILESYSTEM): $(AUDIO_MP3_WAV64) $(AUDIO_WAV_WAV64)
 $(MODELS_FILESYSTEM): $(MODELS_SPRITES) $(MODELS_MODEL64)
-$(BUILD_DIR)/$(GAME).dfs: $(FONTS_FILESYSTEM) $(MODELS_FILESYSTEM) $(IMAGE_FILESYSTEM)
+$(BUILD_DIR)/$(GAME).dfs: $(FONTS_FILESYSTEM) $(MODELS_FILESYSTEM) $(IMAGE_FILESYSTEM) $(AUDIO_FILESYSTEM)
 $(BUILD_DIR)/$(GAME).elf: $(OBJS)
 
 $(GAME).z64: N64_ROM_TITLE="Game Jam 2025"
@@ -113,9 +136,7 @@ clean:
 .PHONY: clean
 
 test:
-	@echo "Models images" $(MODELS_IMAGE)
-	@echo "Model sprites" $(MODELS_SPRITES)
-	@echo "Model filesystem" $(MODELS_FILESYSTEM)
+	@echo "Audio" $(AUDIO_MP3_FILES) $(AUDIO_MP3_WAV64)
 .PHONY: test
 
 -include $(wildcard $(BUILD_DIR)/*.d)
