@@ -1,4 +1,5 @@
 #include "intro.h"
+#include "state.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/gl_integration.h>
@@ -9,7 +10,7 @@
 
 #define SEGMENTS_LOGO 1
 #define SEGMENTS_DRAGON 4
-#define SEGMENTS_START 180
+#define SEGMENTS_START 10
 #define SEGMENTS_1_START 0
 #define SEGMENTS_2_START 60
 #define SEGMENTS_3_START SEGMENTS_2_START
@@ -142,7 +143,7 @@ static inline float lerp(float current, float target, float speed) {
 	return current * (1.0f - speed) + target * speed;
 }
 
-void intro_move (void) {
+void intro_move (float dt) {
 
 	intro_timer++;
 
@@ -176,7 +177,7 @@ void intro_move (void) {
 
 	// Finish this
 	if (intro_timer > SEGMENTS_END) {
-		intro_end();
+		state_switch (STATE_MENU);
 	}
 }
 
@@ -246,7 +247,7 @@ void intro_draw (void) {
 	mixer_try_play();
 }
 
-void intro_end (void) {
+void intro_close (void) {
 	wav64_close(&intro_jingle);
 	for (uint8_t i=0; i<SEGMENTS_TOTAL; i++) {
 		model64_free(segments[i].model);

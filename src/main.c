@@ -1,11 +1,11 @@
-#include <libdragon.h>
 #include "main.h"
-#include "intro.h"
+#include "state.h"
 
 #define FPS_SAMPLES 20
 #define FPS_TARGET 60.0
 
 heap_stats_t heap_stats;
+joypad_buttons_t buttons = {0};
 
 float update_fps (void) {
 	static float samples[FPS_SAMPLES] = {1.0};
@@ -33,7 +33,10 @@ int main(void)
 	joypad_init();
 
 	// Init own own functionality
-	intro_init();
+	states[current_state].init_func();
+
+	// Main variables
+	float fps;
 
 	// Register the default font
 	rdpq_font_t *fnt1 = rdpq_font_load_builtin(FONT_BUILTIN_DEBUG_MONO);
@@ -43,6 +46,8 @@ int main(void)
 	while(1) {
 		// Start a new frame
 		sys_get_heap_stats(&heap_stats);
+		buttons = joypad_get_buttons(JOYPAD_PORT_1);
+		fps = update_fps();
 
 		// Get the frame buffer
 		surface_t* disp;
@@ -52,12 +57,14 @@ int main(void)
 		// Attach the buffer to the RDP
 		rdpq_attach(disp, zbuf);
 
-		intro_move();
-		intro_draw();
+		// Run the state functions
+		states[current_state].move_func(1.0f / fps);
+		states[current_state].draw_func();
 
-		rdpq_text_printf(NULL, 1, 20, 20,
+		// Some debug stuff
+		rdpq_text_printf(NULL, 1, 240, 20,
 			"FPS: %.0f\nRAM: %i KB",
-			update_fps(),
+			fps,
 			heap_stats.used / 1024
 		);
 
