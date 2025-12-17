@@ -5,7 +5,7 @@
 #define FPS_TARGET 60.0
 
 heap_stats_t heap_stats;
-joypad_buttons_t buttons = {0};
+joypad_inputs_t buttons = {0};
 
 float update_fps (void) {
 	static float samples[FPS_SAMPLES] = {1.0};
@@ -46,7 +46,8 @@ int main(void)
 	while(1) {
 		// Start a new frame
 		sys_get_heap_stats(&heap_stats);
-		buttons = joypad_get_buttons(JOYPAD_PORT_1);
+		joypad_poll();
+		buttons = joypad_get_inputs(JOYPAD_PORT_1);
 		fps = update_fps();
 
 		// Get the frame buffer
@@ -63,9 +64,11 @@ int main(void)
 
 		// Some debug stuff
 		rdpq_text_printf(NULL, 1, 240, 20,
-			"FPS: %.0f\nRAM: %i KB",
+			"FPS: %.0f\nRAM: %i KB\n%i\n%i,%i",
 			fps,
-			heap_stats.used / 1024
+			heap_stats.used / 1024,
+			buttons.btn.raw,
+			buttons.stick_x, buttons.stick_y
 		);
 
 		// Send frame buffer to display (TV)

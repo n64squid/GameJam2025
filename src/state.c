@@ -15,5 +15,5 @@ state_id_t current_state = STATE_INTRO;
 void state_switch (state_id_t new_state) {
 	states[current_state].close_func();
 	current_state = new_state;
-	states[current_state].close_func();
+	states[current_state].init_func();
 }

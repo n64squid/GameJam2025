@@ -5,10 +5,6 @@
 
 #include <libdragon.h>
 
-typedef struct vertex_s {
-	float x, y, z;
-} vertex_t;
-
 void intro_init (void);
 void intro_move (float dt);
 void intro_draw (void);
