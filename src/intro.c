@@ -1,4 +1,5 @@
 #include "intro.h"
+#include "main.h"
 #include "state.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -10,7 +11,7 @@
 
 #define SEGMENTS_LOGO 1
 #define SEGMENTS_DRAGON 4
-#define SEGMENTS_START 10
+#define SEGMENTS_START 150
 #define SEGMENTS_1_START 0
 #define SEGMENTS_2_START 60
 #define SEGMENTS_3_START SEGMENTS_2_START
@@ -136,11 +137,6 @@ void intro_init (void) {
 		glLightfv(segments[i].light_index, GL_AMBIENT, segments[i].light_color);
 	}
 	segments[0].model = model64_load("rom:/models/logo.model64");
-}
-
-// Inline lerp function to help with the animation functions
-static inline float lerp(float current, float target, float speed) {
-	return current * (1.0f - speed) + target * speed;
 }
 
 void intro_move (float dt) {
