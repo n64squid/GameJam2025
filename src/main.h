@@ -5,12 +5,16 @@
 
 #include <libdragon.h>
 
-#define DISPLAY_WIDTH 360
+#define DISPLAY_WIDTH 320
 #define DISPLAY_HEIGHT 240
 
 typedef struct vertex_s {
 	float x, y, z;
 } vertex_t;
+
+typedef struct coord_s {
+	float x, y;
+} coord_t;
 
 // Inline lerp function to help with the animation functions
 static inline float lerp(float current, float target, float speed) {

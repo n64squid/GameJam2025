@@ -13,7 +13,7 @@ ASEPRITE_FILES=$(wildcard $(IMAGE_DIR)/*.ase)
 ASEPRITE_PNGS=$(ASEPRITE_FILES:.ase=.png)
 
 IMAGE_FILESYSTEM=$(FILESYSTEM_DIR)/images
-IMAGE_FILES=$(wildcard $(IMAGE_DIR)/*.png) $(ASEPRITE_PNGS)
+IMAGE_FILES=$(wildcard $(IMAGE_DIR)/*.png) $(wildcard $(IMAGE_DIR)/*/*.png) $(ASEPRITE_PNGS)
 IMAGE_SPRITES=$(sort $(subst assets,filesystem,$(IMAGE_FILES:.png=.sprite)))
 
 # Fonts
@@ -136,7 +136,7 @@ clean:
 .PHONY: clean
 
 test:
-	@echo "Audio" $(AUDIO_MP3_FILES) $(AUDIO_MP3_WAV64)
+	@echo "Images" $(IMAGE_FILES)
 .PHONY: test
 
 -include $(wildcard $(BUILD_DIR)/*.d)
