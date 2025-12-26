@@ -9,7 +9,7 @@ state_table_row_t states[STATE_COUNT] = {
 #undef X
 
 // Current state
-state_id_t current_state = STATE_INTRO;
+state_id_t current_state = STATE_GAME;
 
 // Use this to switch from one state to another
 void state_switch (state_id_t new_state) {

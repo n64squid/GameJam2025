@@ -25,7 +25,7 @@ float update_fps (void) {
 int main(void)
 {
 	// Initialise the various systems
-	display_init(RESOLUTION_320x240, DEPTH_32_BPP, 3, GAMMA_NONE, FILTERS_RESAMPLE);
+	display_init(RESOLUTION_320x240, DEPTH_16_BPP, 3, GAMMA_NONE, FILTERS_RESAMPLE);
 	dfs_init(DFS_DEFAULT_LOCATION);
 	audio_init(32000, 3);
 	mixer_init(32);

@@ -52,10 +52,11 @@ typedef enum {
 
 void menu_action_none (void* ctx);
 void menu_action_change_menu (void* ctx);
+void menu_action_change_state (void* ctx);
 
 // Individual menu items
 const menu_item_t menu_main[] = {
-	{"Play", menu_action_none, NULL},
+	{"Play", menu_action_change_state, (void*)STATE_GAME},
 	{"Tutorial", menu_action_none, NULL},
 	{"Options", menu_action_change_menu, (void*)MENU_OPTIONS},
 	{"Credits", menu_action_change_menu, (void*)MENU_CREDITS},
