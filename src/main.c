@@ -1,11 +1,12 @@
 #include "main.h"
 #include "state.h"
+#include <ctype.h>
 
 #define FPS_SAMPLES 20
 #define FPS_TARGET 60.0
 
 heap_stats_t heap_stats;
-joypad_inputs_t buttons = {0};
+buttons_t buttons = {0};
 
 float update_fps (void) {
 	static float samples[FPS_SAMPLES] = {1.0};
@@ -22,6 +23,17 @@ float update_fps (void) {
 	return 1.0f / (total / FPS_SAMPLES);
 }
 
+void make_canonical(char *dst, const char *src) {
+	while (*src) {
+		char c = *src++;
+		if (c == ' ')
+			*dst++ = '_';
+		else
+			*dst++ = tolower((unsigned char)c);
+	}
+	*dst = '\0';
+}
+
 int main(void)
 {
 	// Initialise the various systems
@@ -36,7 +48,7 @@ int main(void)
 	states[current_state].init_func();
 
 	// Main variables
-	float fps;
+	float fps = 60.0;
 
 	// Register the default font
 	rdpq_font_t *fnt1 = rdpq_font_load_builtin(FONT_BUILTIN_DEBUG_MONO);
@@ -47,7 +59,8 @@ int main(void)
 		// Start a new frame
 		sys_get_heap_stats(&heap_stats);
 		joypad_poll();
-		buttons = joypad_get_inputs(JOYPAD_PORT_1);
+		memcpy(&buttons.prev, &buttons.cur, sizeof(joypad_inputs_t));
+		buttons.cur = joypad_get_inputs(JOYPAD_PORT_1);
 		fps = update_fps();
 
 		// Get the frame buffer
@@ -67,8 +80,8 @@ int main(void)
 			"FPS: %.0f\nRAM: %i KB\n%i\n%i,%i",
 			fps,
 			heap_stats.used / 1024,
-			buttons.btn.raw,
-			buttons.stick_x, buttons.stick_y
+			buttons.cur.btn.raw,
+			buttons.cur.stick_x, buttons.cur.stick_y
 		);
 
 		// Send frame buffer to display (TV)

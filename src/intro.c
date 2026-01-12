@@ -137,6 +137,10 @@ void intro_init (void) {
 		glLightfv(segments[i].light_index, GL_AMBIENT, segments[i].light_color);
 	}
 	segments[0].model = model64_load("rom:/models/logo.model64");
+
+	// This is weird, it keeps the code from crashing
+	model64_free(segments[0].model);
+	segments[0].model = model64_load("rom:/models/logo.model64");
 }
 
 void intro_move (float dt) {

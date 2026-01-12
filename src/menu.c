@@ -138,7 +138,6 @@ static inline void star_boost (menu_star_dir_t direction, float value) {
 
 void menu_move (float dt) {
 	float modifier;
-	static bool is_down = false;
 	for (uint8_t i=0; i<MENU_STAR_COUNT; i++) {
 		// Move it
 		modifier = ((MENU_STAR_DISTANCE_MAX - stars[i].pos.z + MENU_STAR_DISTANCE_STEP) / MENU_STAR_DISTANCE_MAX);
@@ -165,52 +164,41 @@ void menu_move (float dt) {
 	}
 
 	// Move the stars around
-	if (buttons.stick_x) {
-		star_boost(MENU_STAR_DIR_X, buttons.stick_x * MENU_STAR_SPEED_JOYSTICK);
+	if (buttons.cur.stick_x) {
+		star_boost(MENU_STAR_DIR_X, buttons.cur.stick_x * MENU_STAR_SPEED_JOYSTICK);
 	}
-	if (buttons.stick_y) {
-		star_boost(MENU_STAR_DIR_Y, buttons.stick_y * MENU_STAR_SPEED_JOYSTICK);
+	if (buttons.cur.stick_y) {
+		star_boost(MENU_STAR_DIR_Y, buttons.cur.stick_y * MENU_STAR_SPEED_JOYSTICK);
 	}
 
-	// Button control
-	if (!is_down) {
-		// Traverse the menu
-		if (buttons.btn.d_down) {
-			menu[current_menu].selected++;
-			star_boost(MENU_STAR_DIR_Y, -MENU_STAR_SPEED_BOOST);
-			is_down = true;
-			if (menu[current_menu].selected == menu[current_menu].item_count) {
-				menu[current_menu].selected = 0;
-			}
-		}
-		if (buttons.btn.d_up) {
-			menu[current_menu].selected--;
-			star_boost(MENU_STAR_DIR_Y, MENU_STAR_SPEED_BOOST);
-			is_down = true;
-			if (menu[current_menu].selected == UINT8_MAX) {
-				menu[current_menu].selected = menu[current_menu].item_count-1;
-			}
-		}
-
-		// Activate menu item
-		if (buttons.btn.a) {
-			menu[current_menu]
-				.items[menu[current_menu].selected]
-				.action(menu[current_menu].items[menu[current_menu].selected].arg);
-			is_down = true;
-		}
-
-		// Return to previous menu
-		if (buttons.btn.b) {
-			menu[current_menu].back(menu[current_menu].arg);
-			is_down = true;
-		}
-	} else {
-		// Disengage the button hold
-		if (!buttons.btn.raw) {
-			is_down = false;
+	// Traverse the menu
+	if (BTN_DOWN(d_down)) {
+		menu[current_menu].selected++;
+		star_boost(MENU_STAR_DIR_Y, -MENU_STAR_SPEED_BOOST);
+		if (menu[current_menu].selected == menu[current_menu].item_count) {
+			menu[current_menu].selected = 0;
 		}
 	}
+	if (BTN_DOWN(d_up)) {
+		menu[current_menu].selected--;
+		star_boost(MENU_STAR_DIR_Y, MENU_STAR_SPEED_BOOST);
+		if (menu[current_menu].selected == UINT8_MAX) {
+			menu[current_menu].selected = menu[current_menu].item_count-1;
+		}
+	}
+
+	// Activate menu item
+	if (BTN_DOWN(a)) {
+		menu[current_menu]
+			.items[menu[current_menu].selected]
+			.action(menu[current_menu].items[menu[current_menu].selected].arg);
+	}
+
+	// Return to previous menu
+	if (BTN_DOWN(b)) {
+		menu[current_menu].back(menu[current_menu].arg);
+	}
+
 }
 
 void menu_draw (void) {
@@ -269,7 +257,7 @@ void menu_draw (void) {
 
 		rdpq_text_printf(
 			&(rdpq_textparms_t){
-				.width = 320,
+				.width = DISPLAY_WIDTH,
 				.height = 20,
 				.align  = ALIGN_CENTER,
 				.valign  = VALIGN_TOP,

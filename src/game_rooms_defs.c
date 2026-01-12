@@ -1,105 +1,193 @@
 #include "game_rooms_defs.h"
 #include "game_main.h"
 
-#define TASK_DURATION_SHORT 1.0f
-#define TASK_DURATION_MID   1.5f
-#define TASK_DURATION_LONG  2.5f
-
-#define TASK_URGENCY_SHORT 10.0f
-#define TASK_URGENCY_MID   15.0f
-#define TASK_URGENCY_LONG  25.0f
-
-#define OBJECT_COUNT(room) (sizeof(room) / sizeof(room[0]))
-
-game_task_t tasks_baby[] = {
-	{
-		.name = "Change nappy",
-		.duration = TASK_DURATION_SHORT,
-		.urgency = TASK_URGENCY_SHORT,
-	},
-	{.name = "Rock to sleep"},
-	{.name = "Burp"},
-};
-
 game_object_t objects_bedroom[] = {
 	{
 		.name = "Baby",
-		.canonical = "baby",
 		.pos = {GAME_DISPLAY_PADDING, 96},
-		.tasks = tasks_baby,
+		.size = {64, 64},
+		.tasks = &tasks_baby,
 	},
 	{
 		.name = "Bed",
-		.canonical = "bed",
 		.pos = {GAME_DISPLAY_PADDING+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_bed,
 	},
 	{
 		.name = "Clothes",
-		.canonical = "clothes",
 		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_clothes,
 	},
 	{
 		.name = "Computer",
-		.canonical = "computer",
 		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_pc,
 	},
 	{
 		.name = "Floor",
-		.canonical = "floor",
 		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
+		.size = {64, 64},
+		.tasks = &tasks_room,
 	},
 };
 
 game_object_t objects_bathroom[] = {
 	{
-		.name = "Baby",
-		.canonical = "baby",
-		.tasks = tasks_baby,
+		.name = "Bathtub",
+		.tasks = &tasks_bathtub,
 		.pos = {GAME_DISPLAY_PADDING, 96},
-	}
+		.size = {64, 64},
+	},
+	{
+		.name = "Sink",
+		.pos = {GAME_DISPLAY_PADDING+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_sink,
+	},
+	{
+		.name = "Toilet",
+		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_toilet,
+	},
+	{
+		.name = "Washer",
+		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_washer,
+	},
+	{
+		.name = "Floor",
+		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
+		.size = {64, 64},
+		.tasks = &tasks_room,
+	},
 };
 
 game_object_t objects_kitchen[] = {
 	{
-		.name = "Baby",
-		.canonical = "baby",
-		.tasks = tasks_baby,
-	}
+		.name = "Dog",
+		.pos = {GAME_DISPLAY_PADDING, 96},
+		.size = {64, 64},
+		.tasks = &tasks_dog,
+	},
+	{
+		.name = "Fridge",
+		.pos = {GAME_DISPLAY_PADDING+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_fridge,
+	},
+	{
+		.name = "Oven",
+		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_oven,
+	},
+	{
+		.name = "Basin",
+		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_basin,
+	},
+	{
+		.name = "Floor",
+		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
+		.size = {64, 64},
+		.tasks = &tasks_room,
+	},
 };
 
 game_object_t objects_living[] = {
 	{
-		.name = "Baby",
-		.canonical = "baby",
-		.tasks = tasks_baby,
-	}
+		.name = "Front door",
+		.pos = {GAME_DISPLAY_PADDING, 96},
+		.size = {64, 64},
+		.tasks = &tasks_door,
+	},
+	{
+		.name = "Sofa",
+		.pos = {GAME_DISPLAY_PADDING+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_sofa,
+	},
+	{
+		.name = "TV",
+		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_tv,
+	},
+	{
+		.name = "Window",
+		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
+		.size = {64, 64},
+		.tasks = &tasks_window,
+	},
+	{
+		.name = "Floor",
+		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
+		.size = {64, 64},
+		.tasks = &tasks_room,
+	},
 };
 
 game_room_t rooms[] = {
 	{
 		.name = "Bedroom",
-		.canonical = "bedroom",
 		.objects = objects_bedroom,
-		.objects_count = OBJECT_COUNT(objects_bedroom),
+		.objects_count = COUNT(objects_bedroom),
 	},
 	{
 		.name = "Bathroom",
-		.canonical = "bathroom",
 		.objects = objects_bathroom,
-		.objects_count = OBJECT_COUNT(objects_bathroom),
+		.objects_count = COUNT(objects_bathroom),
 	},
 	{
 		.name = "Kitchen",
-		.canonical = "kitchen",
 		.objects = objects_kitchen,
-		.objects_count = OBJECT_COUNT(objects_kitchen),
+		.objects_count = COUNT(objects_kitchen),
 	},
 	{
 		.name = "Living Room",
-		.canonical = "living",
 		.objects = objects_living,
-		.objects_count = OBJECT_COUNT(objects_living),
+		.objects_count = COUNT(objects_living),
 	},
 };
 
 const size_t room_count = sizeof(rooms) / sizeof(rooms[0]);
+
+void game_room_defs_init (void) {
+	char temptext[64];
+	char canonical[16];
+	for (size_t i=0; i<room_count; i++) {
+
+		// Do things for each room
+		make_canonical(canonical, rooms[i].name);
+		sprintf(temptext, "rom:/images/bg/wall_%s.ci4.sprite", canonical);
+		rooms[i].wall_sprite = sprite_load(temptext);
+		sprintf(temptext, "rom:/images/bg/floor_%s.ci4.sprite", canonical);
+		rooms[i].floor_sprite = sprite_load(temptext);
+
+		// Do things for each object
+		for (size_t j=0; j<rooms[i].objects_count; j++) {
+			make_canonical(canonical, rooms[i].objects[j].name);
+			// Load sprites
+			sprintf(temptext, "rom:/images/obj/%s.ci4.sprite", canonical);
+			rooms[i].objects[j].sprite = sprite_load(temptext);
+			// Reset objects to base values
+			rooms[i].objects[j].time_left = 0.0f;
+			rooms[i].objects[j].active_task = NULL;
+		}
+	}
+}
+void game_rooms_defs_close (void) {
+	for (size_t i=0; i<room_count; i++) {
+		sprite_free(rooms[i].wall_sprite);
+		sprite_free(rooms[i].floor_sprite);
+		for (size_t j=0; j<rooms[i].objects_count; j++) {
+			sprite_free(rooms[i].objects[j].sprite);
+		}
+	}
+}
