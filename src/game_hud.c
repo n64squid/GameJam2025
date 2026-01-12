@@ -1,9 +1,9 @@
 #include "main.h"
 #include "game_hud.h"
 #include "game_main.h"
+#include "game_tools.h"
 #include "game_robot.h"
 
-#define GAME_DISPLAY_PADDING 8
 #define GAME_HUD_WIDTH (DISPLAY_WIDTH - GAME_DISPLAY_PADDING*2)
 #define GAME_HUD_HEIGHT 48
 #define GAME_HUD_X (GAME_DISPLAY_PADDING)
@@ -46,6 +46,8 @@
 #define GAME_HUD_TOOLS_Y (GAME_HUD_MONEY_Y)
 #define GAME_HUD_TOOLS_WIDTH (GAME_HUD_ITEM_WIDTH_2)
 #define GAME_HUD_TOOLS_HEIGHT (GAME_HUD_ITEM_HEIGHT_3)
+#define GAME_HUD_TOOLS_SPRITE_OFFSET_X (GAME_HUD_PADDING_MID + GAME_HUD_PADDING_SML)
+#define GAME_HUD_TOOLS_SPRITE_OFFSET_Y (GAME_HUD_ITEM_HEIGHT_1 + GAME_HUD_PADDING_MID + GAME_HUD_PADDING_SML)
 
 #define GAME_HUD_AVATAR_X (GAME_HUD_TOOLS_X + GAME_HUD_TOOLS_WIDTH + GAME_HUD_PADDING_MID)
 #define GAME_HUD_AVATAR_Y (GAME_HUD_TOOLS_Y)
@@ -66,7 +68,7 @@ typedef enum {
 	SPRITE_UPGRADE_0,
 	SPRITE_UPGRADE_1,
 	SPRITE_COUNT,
-} state_id_t;
+} sprite_id_t;
 
 static sprite_t* sprites[SPRITE_COUNT];
 
@@ -128,6 +130,12 @@ void game_hud_draw (void) {
 		sprites[SPRITE_TOOL],
 		GAME_HUD_TOOLS_X,
 		GAME_HUD_TOOLS_Y,
+		NULL
+	);
+	rdpq_sprite_blit (
+		tools[current_tool].sprite,
+		GAME_HUD_TOOLS_X + GAME_HUD_TOOLS_SPRITE_OFFSET_X,
+		GAME_HUD_TOOLS_Y + GAME_HUD_TOOLS_SPRITE_OFFSET_Y,
 		NULL
 	);
 

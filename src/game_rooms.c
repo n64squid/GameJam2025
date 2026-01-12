@@ -6,83 +6,77 @@
 #define FLOOR_COUNT 2
 #define ROOMS_PER_FLOOR 2
 #define ARROW_MARGIN 4
-
-typedef struct game_cursor_s {
-	uint8_t selected;
-	uint8_t room;
-	sprite_t* sprite;
-} game_cursor_t;
-
+#define ANIM_FRAME_TICKS 15
 
 game_cursor_t cursor;
+sprite_t* active_sprite;
+uint32_t animation_counter = 0;
 
 void game_rooms_init (void) {
 	cursor = (game_cursor_t){
 		.room = 0,
-		.selected = 0,
+		.selected_task = NULL,
+		.selected_object = 0,
+		.mode = CURSOR_SELECT_OBJECT,
 		.sprite = sprite_load("rom:/images/icons/cursor.ci4.sprite"),
 	};
-	char temptext[64];
-	// Load bg sprites
-	for (size_t i=0; i<room_count; i++) {
-		sprintf(temptext, "rom:/images/bg/wall-%s.ci4.sprite", rooms[i].canonical);
-		rooms[i].wall_sprite = sprite_load(temptext);
-		sprintf(temptext, "rom:/images/bg/floor-%s.ci4.sprite", rooms[i].canonical);
-		rooms[i].floor_sprite = sprite_load(temptext);
-		// Load the objects
-		for (size_t j=0; j<rooms[i].objects_count; j++) {
-			sprintf(temptext, "rom:/images/obj/%s.ci4.sprite", rooms[i].objects[j].canonical);
-			rooms[i].objects[j].sprite = sprite_load(temptext);
+	game_room_defs_init();
+	active_sprite = sprite_load("rom:/images/obj/active.ci4.sprite");
+}
+
+static inline uint8_t wrap_add(uint8_t v, int delta, uint8_t max) {
+	return (v + delta + max) % max;
+}
+
+void game_rooms_move(float dt) {
+	(void)dt;
+
+	// Enter object mode on left/right
+	if ((BTN_DOWN(d_left) || BTN_DOWN(d_right)) && cursor.mode != CURSOR_SELECT_OBJECT) {
+		cursor.mode = CURSOR_SELECT_OBJECT;
+		return;
+	}
+
+	// Object traversal
+	if (cursor.mode == CURSOR_SELECT_OBJECT) {
+		if (BTN_DOWN(d_right)) {
+			cursor.selected_object =
+				wrap_add(cursor.selected_object, +1, rooms[cursor.room].objects_count);
 		}
+		if (BTN_DOWN(d_left)) {
+			cursor.selected_object =
+				wrap_add(cursor.selected_object, -1, rooms[cursor.room].objects_count);
+		}
+		if (BTN_DOWN(a) && rooms[cursor.room].objects[cursor.selected_object].tasks->count && rooms[cursor.room].objects[cursor.selected_object].active_task) {
+			game_tasks_add (rooms[cursor.room].objects[cursor.selected_object].active_task);
+		}
+	}
+
+	// Room traversal
+	int room_delta = 0;
+
+	if (BTN_DOWN(c_right)) room_delta += 1;
+	if (BTN_DOWN(c_left))  room_delta += ROOMS_PER_FLOOR-1;
+
+	if (room_delta != 0) {
+		cursor.room = ((cursor.room / ROOMS_PER_FLOOR) * ROOMS_PER_FLOOR) + ((cursor.room+room_delta) % ROOMS_PER_FLOOR);
+		cursor.selected_object = 0;
+		return;
+	}
+	if (BTN_DOWN(c_up))    room_delta += ROOMS_PER_FLOOR;
+	if (BTN_DOWN(c_down))  room_delta += ROOMS_PER_FLOOR * FLOOR_COUNT - ROOMS_PER_FLOOR;
+
+	if (room_delta != 0) {
+		cursor.room = (cursor.room+room_delta) % (ROOMS_PER_FLOOR*FLOOR_COUNT);
+		cursor.selected_object = 0;
+		return;
 	}
 }
 
-void game_rooms_move (float dt) {
-	static bool is_down = false;
-	// Button control
-	if (!is_down) {
-		// Traverse the objects
-		if (buttons.btn.d_right) {
-			cursor.selected = (cursor.selected + 1) % rooms[cursor.room].objects_count;
-			is_down = true;
-		}
-		if (buttons.btn.d_left) {
-			cursor.selected = (cursor.selected + (rooms[cursor.room].objects_count-1)) % rooms[cursor.room].objects_count;
-			is_down = true;
-		}
-		// Traverse the rooms
-		if (buttons.btn.c_right) {
-			cursor.room = (cursor.room + 1) % ROOMS_PER_FLOOR;
-			cursor.selected = 0;
-			is_down = true;
-		}
-		if (buttons.btn.c_left) {
-			cursor.room = (cursor.room + ROOMS_PER_FLOOR - 1) % ROOMS_PER_FLOOR;
-			cursor.selected = 0;
-			is_down = true;
-		}
-		if (buttons.btn.c_up) {
-			cursor.room = (cursor.room + ROOMS_PER_FLOOR) % (ROOMS_PER_FLOOR + FLOOR_COUNT);
-			cursor.selected = 0;
-			is_down = true;
-		}
-		if (buttons.btn.c_down) {
-			cursor.room = (cursor.room + (ROOMS_PER_FLOOR + FLOOR_COUNT) - ROOMS_PER_FLOOR) % (ROOMS_PER_FLOOR + FLOOR_COUNT);
-			cursor.selected = 0;
-			is_down = true;
-		}
-
-	} else {
-		// Disengage the button hold
-		if (!buttons.btn.raw) {
-			is_down = false;
-		}
-	}
-}
 
 void game_rooms_draw (void) {
 
-	// Draw teh background
+	// Draw the background
 	rdpq_sprite_blit (
 		rooms[cursor.room].wall_sprite,
 		GAME_DISPLAY_PADDING,
@@ -99,34 +93,45 @@ void game_rooms_draw (void) {
 	// Draw the objects
 	for (size_t i=0; i<rooms[cursor.room].objects_count; i++) {
 		assertf(rooms[cursor.room].objects[i].sprite, "Sprite not found: %s", rooms[cursor.room].objects[i].name);
+		// Calculate the index of the task with pointer arithmetic
+		uint8_t task_index = rooms[cursor.room].objects[i].active_task
+			? rooms[cursor.room].objects[i].active_task->animation[
+				(animation_counter % (rooms[cursor.room].objects[i].active_task->animation_length * ANIM_FRAME_TICKS)) / ANIM_FRAME_TICKS
+			]
+			: 0;
 		rdpq_sprite_blit (
 			rooms[cursor.room].objects[i].sprite,
 			rooms[cursor.room].objects[i].pos.x,
 			rooms[cursor.room].objects[i].pos.y,
-			NULL
+			&(rdpq_blitparms_t) {
+				.s0 = task_index * rooms[cursor.room].objects[i].size.x,
+				.t0 = 0,
+				.width = rooms[cursor.room].objects[i].size.x,
+				.height = rooms[cursor.room].objects[i].size.y,
+			}
 		);
+
 	}
 
 	// Draw the arrow
-	rdpq_sprite_blit (
-		cursor.sprite,
-		rooms[cursor.room].objects[cursor.selected].pos.x + rooms[cursor.room].objects[cursor.selected].sprite->width/2 - cursor.sprite->width/2,
-		rooms[cursor.room].objects[cursor.selected].pos.y - cursor.sprite->height - ARROW_MARGIN,
-		NULL
-	);
-
+	if (cursor.mode == CURSOR_SELECT_OBJECT) {
+		rdpq_sprite_blit (
+			cursor.sprite,
+			rooms[cursor.room].objects[cursor.selected_object].pos.x + rooms[cursor.room].objects[cursor.selected_object].size.x/2 - cursor.sprite->width/2,
+			rooms[cursor.room].objects[cursor.selected_object].pos.y - cursor.sprite->height - ARROW_MARGIN,
+			NULL
+		);
+	}
+	animation_counter++;
+	return;
 	rdpq_text_printf(NULL, 1, 20, 20,
 		"Current room: %s\nSelected: %s",
 		rooms[cursor.room].name,
-		rooms[cursor.room].objects[cursor.selected].name
+		rooms[cursor.room].objects[cursor.selected_object].name
 	);
 }
 
 void game_rooms_close (void) {
-
-	for (size_t i=0; i<room_count; i++) {
-		sprite_free(rooms[i].wall_sprite);
-		sprite_free(rooms[i].floor_sprite);
-	}
 	sprite_free(cursor.sprite);
+	game_rooms_defs_close();
 }
