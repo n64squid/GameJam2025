@@ -23,6 +23,7 @@ void game_tasks_move (float dt);
 void game_tasks_draw (void);
 void game_tasks_close (void);
 void game_tasks_add (const game_task_t* task_to_add);
+void game_tasks_remove(task_node_t* node);
 
 extern task_queue_t tasks;
 

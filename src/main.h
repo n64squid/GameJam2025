@@ -22,6 +22,13 @@ typedef struct coord_s {
 	float x, y;
 } coord_t;
 
+static inline coord_t coord_add(coord_t a, coord_t b) {
+	return (coord_t){
+		.x = a.x + b.x,
+		.y = a.y + b.y
+	};
+}
+
 // Inline lerp function to help with the animation functions
 static inline float lerp(float current, float target, float speed) {
 	return current * (1.0f - speed) + target * speed;

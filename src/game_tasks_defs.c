@@ -5,10 +5,14 @@
 #define TASK_DURATION_MID   1.5f
 #define TASK_DURATION_LONG  2.5f
 
-#define TASK_URGENCY_SHORT 10.0f
-#define TASK_URGENCY_MID   15.0f
-#define TASK_URGENCY_LONG  25.0f
+#define TASK_URGENCY_SHORT 15.0f
+#define TASK_URGENCY_MID   20.0f
+#define TASK_URGENCY_LONG  30.0f
 
+
+//
+// TODO: These are values based on the current difficulty being played.
+//
 static const task_data_def_t task_data_defs[TASK_DATA_COUNT] = {
 	[TASK_DATA_EASY]   = { .min_time = 600, .create_chance = 600 },
 	[TASK_DATA_MEDIUM] = { .min_time = 400, .create_chance = 500 },

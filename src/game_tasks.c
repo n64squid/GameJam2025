@@ -1,12 +1,28 @@
 #include "game_tasks.h"
 #include "game_rooms.h"
 #include "game_state.h"
+#include "game_robot.h"
 #include "main.h"
 #include "state.h"
 
 #define TASKBAR_PADDING 4
 
 task_queue_t tasks;
+
+void game_tasks_update_target (void) {
+	if (tasks.start == NULL) {
+		robot.target = NULL;
+		return;
+	}
+	for (uint8_t i=0; i<ROOM_COUNT; i++) {
+		for (size_t j=0; j<rooms[i].objects_count; j++) {
+			if (tasks.start->task == rooms[i].objects[j].active_task) {
+				robot.target = &rooms[i].objects[j];
+				return;
+			}
+		}
+	}
+}
 
 void game_tasks_add (const game_task_t* task_to_add) {
 	task_node_t* new_task = malloc(sizeof(task_node_t));
@@ -22,6 +38,7 @@ void game_tasks_add (const game_task_t* task_to_add) {
 		tasks.end = new_task;
 		cursor.selected_task = cursor.selected_task ? cursor.selected_task : new_task;
 	}
+	game_tasks_update_target();
 }
 
 void game_tasks_remove(task_node_t* node) {
@@ -45,6 +62,7 @@ void game_tasks_remove(task_node_t* node) {
 
 	cursor.selected_task = node->next ? node->next : node->prev;
 	free(node);
+	game_tasks_update_target();
 }
 
 void game_tasks_init (void) {
@@ -95,7 +113,7 @@ void game_tasks_move (float dt) {
 	// Handle task creation
 	if (task_state.timer > task_state.data[task_state.difficulty].min_time) {
 		if (!(rand() % task_state.data[task_state.difficulty].create_chance)) {
-			uint8_t random_room = rand() % room_count;
+			uint8_t random_room = rand() % ROOM_COUNT;
 			uint8_t random_object = rand() % rooms[random_room].objects_count;
 			uint8_t random_task = rand() % rooms[random_room].objects[random_object].tasks->count;
 			rooms[random_room].objects[random_object].active_task = &rooms[random_room].objects[random_object].tasks->tasks[random_task];
@@ -106,7 +124,7 @@ void game_tasks_move (float dt) {
 	task_state.timer++;
 
 	// Count down the timers on active tasks
-	for (size_t i=0; i<room_count; i++) {
+	for (size_t i=0; i<ROOM_COUNT; i++) {
 		for (size_t j=0; j<rooms[i].objects_count; j++) {
 			if (rooms[i].objects[j].active_task) {
 				rooms[i].objects[j].time_left -= 1.0 * dt;
@@ -153,6 +171,7 @@ void game_tasks_draw (void) {
 		task_cursor.x += current->size.x + TASKBAR_PADDING;
 		current = current->next;
 	}
+	return;
 	rdpq_text_printf(NULL, 1,
 		20,
 		30,

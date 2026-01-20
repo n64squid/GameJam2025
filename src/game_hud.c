@@ -97,7 +97,7 @@ void game_hud_draw (void) {
 	);
 
 	// Draw the part health
-	for (uint8_t i=0; i<GAME_ROBOT_PARTS_COUNT; i++) {
+	for (uint8_t i=0; i<ROBOT_PARTS_COUNT; i++) {
 		rdpq_sprite_blit (
 			sprites[SPRITE_UPGRADE_0],
 			GAME_HUD_ROBOT_PARTS_X,
@@ -150,7 +150,7 @@ void game_hud_draw (void) {
 }
 
 void game_hud_close (void) {
-	for (uint8_t i=0; i<GAME_ROBOT_PARTS_COUNT; i++) {
+	for (uint8_t i=0; i<ROBOT_PARTS_COUNT; i++) {
 		sprite_free(sprites[i]);
 	}
 }
