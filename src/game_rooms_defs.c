@@ -138,21 +138,25 @@ game_room_t rooms[] = {
 		.name = "Bedroom",
 		.objects = objects_bedroom,
 		.objects_count = COUNT(objects_bedroom),
+		.exit = ROOM_EXIT_RIGHT,
 	},
 	{
 		.name = "Bathroom",
 		.objects = objects_bathroom,
 		.objects_count = COUNT(objects_bathroom),
+		.exit = ROOM_EXIT_LEFT,
 	},
 	{
 		.name = "Kitchen",
 		.objects = objects_kitchen,
 		.objects_count = COUNT(objects_kitchen),
+		.exit = ROOM_EXIT_RIGHT,
 	},
 	{
 		.name = "Living Room",
 		.objects = objects_living,
 		.objects_count = COUNT(objects_living),
+		.exit = ROOM_EXIT_LEFT,
 	},
 };
 
@@ -179,6 +183,7 @@ void game_room_defs_init (void) {
 			// Reset objects to base values
 			rooms[i].objects[j].time_left = 0.0f;
 			rooms[i].objects[j].active_task = NULL;
+			rooms[i].objects[j].parent = &rooms[i];
 		}
 	}
 }

@@ -3,7 +3,7 @@
 #include "main.h"
 #include "state.h"
 
-#define GAME_STATE_BEGIN_LENGTH 180
+#define GAME_STATE_BEGIN_LENGTH 10
 #define GAME_STATE_GAME_OVER_LENGTH 180
 
 game_state_id_t game_state;
