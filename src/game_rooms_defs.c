@@ -27,7 +27,7 @@ game_object_t objects_bedroom[] = {
 		.tasks = &tasks_pc,
 	},
 	{
-		.name = "Floor",
+		.name = "Bed light",
 		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
 		.size = {64, 64},
 		.tasks = &tasks_room,
@@ -60,7 +60,7 @@ game_object_t objects_bathroom[] = {
 		.tasks = &tasks_washer,
 	},
 	{
-		.name = "Floor",
+		.name = "Bath light",
 		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
 		.size = {64, 64},
 		.tasks = &tasks_room,
@@ -93,7 +93,7 @@ game_object_t objects_kitchen[] = {
 		.tasks = &tasks_basin,
 	},
 	{
-		.name = "Floor",
+		.name = "Kitchen light",
 		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
 		.size = {64, 64},
 		.tasks = &tasks_room,
@@ -126,7 +126,7 @@ game_object_t objects_living[] = {
 		.tasks = &tasks_window,
 	},
 	{
-		.name = "Floor",
+		.name = "L Room light",
 		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
 		.size = {64, 64},
 		.tasks = &tasks_room,
