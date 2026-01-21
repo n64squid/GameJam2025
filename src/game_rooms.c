@@ -9,7 +9,6 @@
 #define ANIM_FRAME_TICKS 15
 
 game_cursor_t cursor;
-sprite_t* active_sprite;
 uint32_t animation_counter = 0;
 
 void game_rooms_init (void) {
@@ -21,7 +20,6 @@ void game_rooms_init (void) {
 		.sprite = sprite_load("rom:/images/icons/cursor.ci4.sprite"),
 	};
 	game_room_defs_init();
-	active_sprite = sprite_load("rom:/images/obj/active.ci4.sprite");
 }
 
 static inline uint8_t wrap_add(uint8_t v, int delta, uint8_t max) {
