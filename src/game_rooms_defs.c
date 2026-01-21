@@ -4,8 +4,8 @@
 game_object_t objects_bedroom[] = {
 	{
 		.name = "Baby",
-		.pos = {GAME_DISPLAY_PADDING, 96},
-		.size = {32, 32},
+		.pos = {200, 50},
+		.size = {57, 92},
 		.tasks = &tasks_baby,
 	},
 	{
