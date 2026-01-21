@@ -88,6 +88,8 @@ void game_rooms_draw (void) {
 		NULL
 	);
 
+	if (animation_counter / 20 % 2) {
+
 	// Draw the objects
 	for (size_t i=0; i<rooms[cursor.room].objects_count; i++) {
 		assertf(rooms[cursor.room].objects[i].sprite, "Sprite not found: %s", rooms[cursor.room].objects[i].name);
@@ -108,6 +110,8 @@ void game_rooms_draw (void) {
 				.height = rooms[cursor.room].objects[i].size.y,
 			}
 		);
+
+	}
 
 	}
 
