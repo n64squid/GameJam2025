@@ -4,32 +4,32 @@
 game_object_t objects_bedroom[] = {
 	{
 		.name = "Baby",
-		.pos = {200, 50},
+		.pos = {202, 52},
 		.size = {57, 92},
 		.tasks = &tasks_baby,
 	},
 	{
 		.name = "Bed",
-		.pos = {GAME_DISPLAY_PADDING+66, 96},
-		.size = {32, 32},
+		.pos = {15, 21},
+		.size = {116, 128},
 		.tasks = &tasks_bed,
 	},
 	{
 		.name = "Clothes",
-		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
-		.size = {32, 32},
+		.pos = {268, 11},
+		.size = {44, 173},
 		.tasks = &tasks_clothes,
 	},
 	{
 		.name = "Computer",
-		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
-		.size = {32, 32},
+		.pos = {114, 63},
+		.size = {79, 59},
 		.tasks = &tasks_pc,
 	},
 	{
 		.name = "Bed light",
-		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
-		.size = {32, 32},
+		.pos = {70, 14},
+		.size = {168, 47},
 		.tasks = &tasks_room,
 	},
 };
