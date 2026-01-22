@@ -3,22 +3,16 @@
 
 game_object_t objects_bedroom[] = {
 	{
-		.name = "Baby",
-		.pos = {202, 52},
-		.size = {57, 92},
-		.tasks = &tasks_baby,
-	},
-	{
 		.name = "Bed",
 		.pos = {15, 21},
 		.size = {116, 128},
 		.tasks = &tasks_bed,
 	},
 	{
-		.name = "Clothes",
-		.pos = {268, 11},
-		.size = {44, 173},
-		.tasks = &tasks_clothes,
+		.name = "Bed light",
+		.pos = {70, 14},
+		.size = {168, 47},
+		.tasks = &tasks_room,
 	},
 	{
 		.name = "Computer",
@@ -27,14 +21,26 @@ game_object_t objects_bedroom[] = {
 		.tasks = &tasks_pc,
 	},
 	{
-		.name = "Bed light",
-		.pos = {70, 14},
-		.size = {168, 47},
-		.tasks = &tasks_room,
+		.name = "Baby",
+		.pos = {202, 52},
+		.size = {57, 92},
+		.tasks = &tasks_baby,
+	},
+	{
+		.name = "Clothes",
+		.pos = {268, 11},
+		.size = {44, 173},
+		.tasks = &tasks_clothes,
 	},
 };
 
 game_object_t objects_bathroom[] = {
+	{
+		.name = "Washer",
+		.pos = {19, 32},
+		.size = {67, 126},
+		.tasks = &tasks_washer,
+	},
 	{
 		.name = "Bathtub",
 		.tasks = &tasks_bathtub,
@@ -42,10 +48,10 @@ game_object_t objects_bathroom[] = {
 		.size = {101, 85},
 	},
 	{
-		.name = "Sink",
-		.pos = {252, 19},
-		.size = {53, 140},
-		.tasks = &tasks_sink,
+		.name = "Bath light",
+		.pos = {76, 14},
+		.size = {164, 38},
+		.tasks = &tasks_room,
 	},
 	{
 		.name = "Toilet",
@@ -54,16 +60,10 @@ game_object_t objects_bathroom[] = {
 		.tasks = &tasks_toilet,
 	},
 	{
-		.name = "Washer",
-		.pos = {19, 32},
-		.size = {67, 126},
-		.tasks = &tasks_washer,
-	},
-	{
-		.name = "Bath light",
-		.pos = {76, 14},
-		.size = {164, 38},
-		.tasks = &tasks_room,
+		.name = "Sink",
+		.pos = {252, 19},
+		.size = {53, 140},
+		.tasks = &tasks_sink,
 	},
 };
 
@@ -73,12 +73,6 @@ game_object_t objects_kitchen[] = {
 		.pos = {8, 8},
 		.size = {75, 171},
 		.tasks = &tasks_dog,
-	},
-	{
-		.name = "Fridge",
-		.pos = {226, 34},
-		.size = {72, 125},
-		.tasks = &tasks_fridge,
 	},
 	{
 		.name = "Oven",
@@ -98,14 +92,26 @@ game_object_t objects_kitchen[] = {
 		.size = {69, 64},
 		.tasks = &tasks_room,
 	},
+	{
+		.name = "Fridge",
+		.pos = {226, 34},
+		.size = {72, 125},
+		.tasks = &tasks_fridge,
+	},
 };
 
 game_object_t objects_living[] = {
 	{
-		.name = "Front door",
-		.pos = {236, 11},
-		.size = {76, 173},
-		.tasks = &tasks_door,
+		.name = "TV",
+		.pos = {18, 56},
+		.size = {59, 66},
+		.tasks = &tasks_tv,
+	},
+	{
+		.name = "L Room light",
+		.pos = {76, 14},
+		.size = {56, 73},
+		.tasks = &tasks_room,
 	},
 	{
 		.name = "Sofa",
@@ -114,22 +120,16 @@ game_object_t objects_living[] = {
 		.tasks = &tasks_sofa,
 	},
 	{
-		.name = "TV",
-		.pos = {18, 56},
-		.size = {59, 66},
-		.tasks = &tasks_tv,
-	},
-	{
 		.name = "Window",
 		.pos = {173, 15},
 		.size = {83, 147},
 		.tasks = &tasks_window,
 	},
 	{
-		.name = "L Room light",
-		.pos = {76, 14},
-		.size = {56, 73},
-		.tasks = &tasks_room,
+		.name = "Front door",
+		.pos = {236, 11},
+		.size = {76, 173},
+		.tasks = &tasks_door,
 	},
 };
 
