@@ -103,32 +103,32 @@ game_object_t objects_kitchen[] = {
 game_object_t objects_living[] = {
 	{
 		.name = "Front door",
-		.pos = {GAME_DISPLAY_PADDING, 96},
-		.size = {32, 32},
+		.pos = {236, 11},
+		.size = {76, 173},
 		.tasks = &tasks_door,
 	},
 	{
 		.name = "Sofa",
-		.pos = {GAME_DISPLAY_PADDING+66, 96},
-		.size = {32, 32},
+		.pos = {81, 64},
+		.size = {136, 85},
 		.tasks = &tasks_sofa,
 	},
 	{
 		.name = "TV",
-		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
-		.size = {32, 32},
+		.pos = {18, 56},
+		.size = {59, 66},
 		.tasks = &tasks_tv,
 	},
 	{
 		.name = "Window",
-		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
-		.size = {32, 32},
+		.pos = {173, 15},
+		.size = {83, 147},
 		.tasks = &tasks_window,
 	},
 	{
 		.name = "L Room light",
-		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
-		.size = {32, 32},
+		.pos = {76, 14},
+		.size = {56, 73},
 		.tasks = &tasks_room,
 	},
 };
