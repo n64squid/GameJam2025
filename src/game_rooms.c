@@ -7,6 +7,7 @@
 #define ROOMS_PER_FLOOR 2
 #define ARROW_MARGIN 4
 #define ANIM_FRAME_TICKS 15
+#define ANIM_URGENCY_FRAMES 3.0f
 
 game_cursor_t cursor;
 uint32_t animation_counter = 0;
@@ -88,17 +89,15 @@ void game_rooms_draw (void) {
 		NULL
 	);
 
-	if (animation_counter / 20 % 2) {
-
 	// Draw the objects
 	for (size_t i=0; i<rooms[cursor.room].objects_count; i++) {
-		assertf(rooms[cursor.room].objects[i].sprite, "Sprite not found: %s", rooms[cursor.room].objects[i].name);
+		assertf(rooms[cursor.room].objects[i].sprite->width <= rooms[cursor.room].objects[i].size.x*4, "Problem with: %s", rooms[cursor.room].objects[i].name);
 		// Calculate the index of the task with pointer arithmetic
 		uint8_t task_index = rooms[cursor.room].objects[i].active_task
-			? rooms[cursor.room].objects[i].active_task->animation[
-				(animation_counter % (rooms[cursor.room].objects[i].active_task->animation_length * ANIM_FRAME_TICKS)) / ANIM_FRAME_TICKS
-			]
+			? (rooms[cursor.room].objects[i].active_task->urgency - rooms[cursor.room].objects[i].time_left) * ANIM_URGENCY_FRAMES
+				/ rooms[cursor.room].objects[i].active_task->urgency + 1
 			: 0;
+		task_index = task_index == ANIM_URGENCY_FRAMES + 1 ? ANIM_URGENCY_FRAMES : task_index;
 		rdpq_sprite_blit (
 			rooms[cursor.room].objects[i].sprite,
 			rooms[cursor.room].objects[i].pos.x,
@@ -110,8 +109,6 @@ void game_rooms_draw (void) {
 				.height = rooms[cursor.room].objects[i].size.y,
 			}
 		);
-
-	}
 
 	}
 
