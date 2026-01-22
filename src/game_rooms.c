@@ -11,11 +11,7 @@
 game_cursor_t cursor;
 uint32_t animation_counter = 0;
 
-coord_t temp_pos = {0,0};
-game_object_t* temp_obj = NULL;
-
 void game_rooms_init (void) {
-	temp_obj = &rooms[ROOM_BEDROOM].objects[0];
 	cursor = (game_cursor_t){
 		.room = 0,
 		.selected_task = NULL,
@@ -39,20 +35,6 @@ void game_rooms_move(float dt) {
 		return;
 	}
 
-	if (buttons.cur.btn.d_right) {
-		temp_pos.x += 1;
-	}
-	if (buttons.cur.btn.d_left) {
-		temp_pos.x -= 1;
-	}
-	if (buttons.cur.btn.d_up) {
-		temp_pos.y -= 1;
-	}
-	if (buttons.cur.btn.d_down) {
-		temp_pos.y += 1;
-	}
-
-/*
 	// Object traversal
 	if (cursor.mode == CURSOR_SELECT_OBJECT) {
 		if (BTN_DOWN(d_right)) {
@@ -67,7 +49,7 @@ void game_rooms_move(float dt) {
 			game_tasks_add (rooms[cursor.room].objects[cursor.selected_object].active_task);
 		}
 	}
-*/
+
 	// Room traversal
 	int room_delta = 0;
 
@@ -117,20 +99,6 @@ void game_rooms_draw (void) {
 				(animation_counter % (rooms[cursor.room].objects[i].active_task->animation_length * ANIM_FRAME_TICKS)) / ANIM_FRAME_TICKS
 			]
 			: 0;
-		if (&rooms[cursor.room].objects[i] == temp_obj) {
-
-		rdpq_sprite_blit (
-			rooms[cursor.room].objects[i].sprite,
-			temp_pos.x,
-			temp_pos.y,
-			&(rdpq_blitparms_t) {
-				.s0 = task_index * rooms[cursor.room].objects[i].size.x,
-				.t0 = 0,
-				.width = rooms[cursor.room].objects[i].size.x,
-				.height = rooms[cursor.room].objects[i].size.y,
-			}
-		);
-		} else {
 		rdpq_sprite_blit (
 			rooms[cursor.room].objects[i].sprite,
 			rooms[cursor.room].objects[i].pos.x,
@@ -142,7 +110,6 @@ void game_rooms_draw (void) {
 				.height = rooms[cursor.room].objects[i].size.y,
 			}
 		);
-		}
 
 	}
 
@@ -158,12 +125,12 @@ void game_rooms_draw (void) {
 		);
 	}
 	animation_counter++;
-	rdpq_text_printf(NULL, 1, 20, 20,
-		"Coordinates: %.1f, %.1f",
-		temp_pos.x,
-		temp_pos.y
-	);
 	return;
+	rdpq_text_printf(NULL, 1, 20, 20,
+		"Current room: %s\nSelected: %s",
+		rooms[cursor.room].name,
+		rooms[cursor.room].objects[cursor.selected_object].name
+	);
 }
 
 void game_rooms_close (void) {

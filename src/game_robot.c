@@ -277,7 +277,6 @@ void game_robot_draw (void) {
 			}
 		);
 	}
-	return;
 	rdpq_text_printf(NULL, 1,
 		20,
 		30,

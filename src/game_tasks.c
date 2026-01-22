@@ -129,8 +129,8 @@ void game_tasks_move (float dt) {
 			if (rooms[i].objects[j].active_task) {
 				rooms[i].objects[j].time_left -= 1.0 * dt;
 				if (rooms[i].objects[j].time_left <= 0) {
-					//game_state = STATE_GAME_GAME_OVER;
-					//failed_task_object = &rooms[i].objects[j];
+					game_state = STATE_GAME_GAME_OVER;
+					failed_task_object = &rooms[i].objects[j];
 				}
 			}
 		}
