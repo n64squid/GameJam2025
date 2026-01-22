@@ -70,32 +70,32 @@ game_object_t objects_bathroom[] = {
 game_object_t objects_kitchen[] = {
 	{
 		.name = "Dog",
-		.pos = {GAME_DISPLAY_PADDING, 96},
-		.size = {32, 32},
+		.pos = {8, 8},
+		.size = {75, 171},
 		.tasks = &tasks_dog,
 	},
 	{
 		.name = "Fridge",
-		.pos = {GAME_DISPLAY_PADDING+66, 96},
-		.size = {32, 32},
+		.pos = {226, 34},
+		.size = {72, 125},
 		.tasks = &tasks_fridge,
 	},
 	{
 		.name = "Oven",
-		.pos = {GAME_DISPLAY_PADDING+66+66, 96},
-		.size = {32, 32},
+		.pos = {80, 15},
+		.size = {66, 144},
 		.tasks = &tasks_oven,
 	},
 	{
 		.name = "Basin",
-		.pos = {GAME_DISPLAY_PADDING+66+66+66, 96},
-		.size = {32, 32},
+		.pos = {139, 94},
+		.size = {80, 65},
 		.tasks = &tasks_basin,
 	},
 	{
 		.name = "Kitchen light",
-		.pos = {DISPLAY_WIDTH/2, GAME_DISPLAY_PADDING + WALL_HEIGHT + 8},
-		.size = {32, 32},
+		.pos = {169, 14},
+		.size = {69, 64},
 		.tasks = &tasks_room,
 	},
 };
