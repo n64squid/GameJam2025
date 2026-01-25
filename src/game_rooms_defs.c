@@ -1,6 +1,8 @@
 #include "game_rooms_defs.h"
 #include "game_main.h"
 
+#define OBJECT_SPRITE_COUNT 4
+
 game_object_t objects_bedroom[] = {
 	{
 		.name = "Bed",
@@ -184,6 +186,10 @@ void game_room_defs_init (void) {
 			rooms[i].objects[j].time_left = 0.0f;
 			rooms[i].objects[j].active_task = NULL;
 			rooms[i].objects[j].parent = &rooms[i];
+			rooms[i].objects[j].highlight_size = (coord_t){
+				.x = rooms[i].objects[j].sprite->width - (rooms[i].objects[j].size.x * OBJECT_SPRITE_COUNT),
+				.y = rooms[i].objects[j].sprite->height,
+			};
 		}
 	}
 }
