@@ -10,8 +10,8 @@ typedef struct game_room_s game_room_t;
 
 typedef struct game_object_s {
 	char* name;
-	coord_t pos;
-	coord_t size;
+	coord_t pos, highlight_pos;
+	coord_t size, highlight_size;
 	const task_list_t* tasks;
 	const game_task_t* active_task;
 	sprite_t* sprite;
