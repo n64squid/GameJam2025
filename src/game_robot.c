@@ -258,6 +258,7 @@ void game_robot_draw (void) {
 		return;
 	}
 	rdpq_set_mode_standard();
+	rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
 	game_robot_calculate_bone(
 		ROBOT_BONE_TORSO,
 		robot.pos,
