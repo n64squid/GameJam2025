@@ -32,21 +32,21 @@ game_robot_t robot = {
 		ROBOT_BONE_TABLE(X)
 	},
 	.bone_draw_order = {
-		ROBOT_BONE_ARM_LOWER_L,
-		ROBOT_BONE_ARM_UPPER_L,
-		ROBOT_BONE_LEG_LOWER_L,
-		ROBOT_BONE_LEG_UPPER_L,
-		ROBOT_BONE_TORSO,
-		ROBOT_BONE_JAW,
-		ROBOT_BONE_HEAD,
 		ROBOT_BONE_ARM_LOWER_R,
 		ROBOT_BONE_ARM_UPPER_R,
 		ROBOT_BONE_LEG_LOWER_R,
 		ROBOT_BONE_LEG_UPPER_R,
+		ROBOT_BONE_TORSO,
+		ROBOT_BONE_JAW,
+		ROBOT_BONE_HEAD,
+		ROBOT_BONE_ARM_LOWER_L,
+		ROBOT_BONE_ARM_UPPER_L,
+		ROBOT_BONE_LEG_LOWER_L,
+		ROBOT_BONE_LEG_UPPER_L,
 	},
 	.pos = ROBOT_POS_START,
 	.room = ROOM_BEDROOM,
-	.animation = &anim_walking,
+	.animation = &anim_standing,
 	.animation_keyframe = 0,
 	.animation_frame = 0,
 	.facing = ROBOT_FACING_RIGHT,
@@ -240,7 +240,6 @@ void game_robot_move (float dt) {
 			if (&rooms[robot.room] == robot.target->parent) {
 				// At the object
 				game_robot_change_animation (&anim_standing);
-				robot.facing = ROBOT_FACING_RIGHT;
 				robot.target->active_task = NULL;
 				game_tasks_remove(tasks.start);
 			} else {
@@ -269,7 +268,7 @@ void game_robot_draw (void) {
 	float x, theta, cx;
 	sprite_t* sprite;
 	for (uint8_t i = 0; i < ROBOT_BONE_COUNT; i++) {
-		bone = &robot.bones[i];
+		bone = &robot.bones[robot.bone_draw_order[i]];
 		sprite = robot_sprites[bone->sprite].sprite;
 
 		x = bone->world_pos.x;
