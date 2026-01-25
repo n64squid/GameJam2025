@@ -64,8 +64,8 @@ const anim_keyframe_t anim_walking_frames[] = {
 	{ // Contact
 		.theta = {
 			[ROBOT_BONE_TORSO]			= 0.0f,
-			[ROBOT_BONE_JAW]			= TO_RADIANS(0.0f),
-			[ROBOT_BONE_HEAD]			= TO_RADIANS(0.0f),
+			[ROBOT_BONE_JAW]			= TO_RADIANS(10.0f),
+			[ROBOT_BONE_HEAD]			= TO_RADIANS(10.0f),
 			[ROBOT_BONE_ARM_UPPER_L]	= TO_RADIANS(-65.0f),
 			[ROBOT_BONE_ARM_LOWER_L]	= TO_RADIANS(65.0f),
 			[ROBOT_BONE_ARM_UPPER_R]	= TO_RADIANS(40.0f),
@@ -82,8 +82,8 @@ const anim_keyframe_t anim_walking_frames[] = {
 	{ // Recoil
 		.theta = {
 			[ROBOT_BONE_TORSO]			= 0.0f,
-			[ROBOT_BONE_JAW]			= TO_RADIANS(0.0f),
-			[ROBOT_BONE_HEAD]			= TO_RADIANS(0.0f),
+			[ROBOT_BONE_JAW]			= TO_RADIANS(-5.0f),
+			[ROBOT_BONE_HEAD]			= TO_RADIANS(-5.0f),
 			[ROBOT_BONE_ARM_UPPER_L]	= TO_RADIANS(-75.0f),
 			[ROBOT_BONE_ARM_LOWER_L]	= TO_RADIANS(60.0f),
 			[ROBOT_BONE_ARM_UPPER_R]	= TO_RADIANS(40.0f),
@@ -118,8 +118,8 @@ const anim_keyframe_t anim_walking_frames[] = {
 	{ // High-point
 		.theta = {
 			[ROBOT_BONE_TORSO]			= 0.0f,
-			[ROBOT_BONE_JAW]			= TO_RADIANS(0.0f),
-			[ROBOT_BONE_HEAD]			= TO_RADIANS(0.0f),
+			[ROBOT_BONE_JAW]			= TO_RADIANS(10.0f),
+			[ROBOT_BONE_HEAD]			= TO_RADIANS(10.0f),
 			[ROBOT_BONE_ARM_UPPER_L]	= TO_RADIANS(15.0f),
 			[ROBOT_BONE_ARM_LOWER_L]	= TO_RADIANS(100.0f),
 			[ROBOT_BONE_ARM_UPPER_R]	= TO_RADIANS(-50.0f),
@@ -136,8 +136,8 @@ const anim_keyframe_t anim_walking_frames[] = {
 	{ // Contact 2
 		.theta = {
 			[ROBOT_BONE_TORSO]			= 0.0f,
-			[ROBOT_BONE_JAW]			= TO_RADIANS(0.0f),
-			[ROBOT_BONE_HEAD]			= TO_RADIANS(0.0f),
+			[ROBOT_BONE_JAW]			= TO_RADIANS(10.0f),
+			[ROBOT_BONE_HEAD]			= TO_RADIANS(10.0f),
 			[ROBOT_BONE_ARM_UPPER_L]	= TO_RADIANS(40.0f),
 			[ROBOT_BONE_ARM_LOWER_L]	= TO_RADIANS(90.0f),
 			[ROBOT_BONE_ARM_UPPER_R]	= TO_RADIANS(-65.0f),
@@ -154,8 +154,8 @@ const anim_keyframe_t anim_walking_frames[] = {
 	{ // Recoil 2
 		.theta = {
 			[ROBOT_BONE_TORSO]			= 0.0f,
-			[ROBOT_BONE_JAW]			= TO_RADIANS(0.0f),
-			[ROBOT_BONE_HEAD]			= TO_RADIANS(0.0f),
+			[ROBOT_BONE_JAW]			= TO_RADIANS(-5.0f),
+			[ROBOT_BONE_HEAD]			= TO_RADIANS(-5.0f),
 			[ROBOT_BONE_ARM_UPPER_L]	= TO_RADIANS(40.0f),
 			[ROBOT_BONE_ARM_LOWER_L]	= TO_RADIANS(80.0f),
 			[ROBOT_BONE_ARM_UPPER_R]	= TO_RADIANS(-75.0f),
@@ -190,8 +190,8 @@ const anim_keyframe_t anim_walking_frames[] = {
 	{ // High point 2
 		.theta = {
 			[ROBOT_BONE_TORSO]			= 0.0f,
-			[ROBOT_BONE_JAW]			= TO_RADIANS(0.0f),
-			[ROBOT_BONE_HEAD]			= TO_RADIANS(0.0f),
+			[ROBOT_BONE_JAW]			= TO_RADIANS(10.0f),
+			[ROBOT_BONE_HEAD]			= TO_RADIANS(10.0f),
 			[ROBOT_BONE_ARM_UPPER_L]	= TO_RADIANS(-50.0f),
 			[ROBOT_BONE_ARM_LOWER_L]	= TO_RADIANS(50.0f),
 			[ROBOT_BONE_ARM_UPPER_R]	= TO_RADIANS(15.0f),
