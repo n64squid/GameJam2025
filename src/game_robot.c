@@ -266,28 +266,35 @@ void game_robot_draw (void) {
 		0.0f
 	);
 	game_robot_bone_t* bone;
-	for (uint8_t i=0; i<ROBOT_BONE_COUNT; i++) {
-
+	float x, theta, cx;
+	sprite_t* sprite;
+	for (uint8_t i = 0; i < ROBOT_BONE_COUNT; i++) {
 		bone = &robot.bones[i];
-		float draw_x = bone->world_pos.x;
-		float draw_cx = robot_sprites[bone->sprite].c.x;
+		sprite = robot_sprites[bone->sprite].sprite;
+
+		x = bone->world_pos.x;
+		theta = bone->world_theta;
+		cx = robot_sprites[bone->sprite].c.x;
 
 		if (robot.facing == ROBOT_FACING_LEFT) {
-			draw_x = robot.pos.x * 2 - draw_x;
-			draw_cx = (robot_sprites[bone->sprite].sprite->width - robot_sprites[bone->sprite].c.x);
+			x = robot.pos.x * 2.0f - x;
+			cx = sprite->width - cx;
+			theta = -theta;
 		}
-		rdpq_sprite_blit(
-			robot_sprites[bone->sprite].sprite,
-			draw_x,
+
+		rdpq_sprite_blit (
+			sprite,
+			x,
 			bone->world_pos.y,
 			&(rdpq_blitparms_t){
 				.flip_x = robot.facing < 0,
-				.cx = draw_cx,
+				.cx = cx,
 				.cy = robot_sprites[bone->sprite].c.y,
-				.theta = robot.facing < 0 ? -bone->world_theta : bone->world_theta,
+				.theta = theta,
 			}
 		);
 	}
+
 	rdpq_text_printf(NULL, 1,
 		20,
 		30,
