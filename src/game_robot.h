@@ -20,10 +20,12 @@ typedef enum {
 } game_robot_health_enum_t;
 
 #define ROBOT_SPRITE_TABLE(X) \
-	X(ROBOT_SPRITE_TORSO, "Torso", 8, 0) \
-	X(ROBOT_SPRITE_HEAD, "Head", 8, 16) \
-	X(ROBOT_SPRITE_ARM, "Arm", 2, 0) \
-	X(ROBOT_SPRITE_LEG, "Leg", 2, 0) \
+	X(ROBOT_SPRITE_TORSO, "Torso", 13, 0) \
+	X(ROBOT_SPRITE_JAW, "Jaw", 26, 6) \
+	X(ROBOT_SPRITE_HEAD, "Head", 25, 36) \
+	X(ROBOT_SPRITE_LIMB, "Limb", 4, 0) \
+	X(ROBOT_SPRITE_ARM, "Arm", 7, 3) \
+	X(ROBOT_SPRITE_LEG, "Leg", 4, 3) \
 
 #define X(name, uri, cx, cy) name,
 typedef enum {
