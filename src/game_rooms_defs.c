@@ -33,7 +33,7 @@ game_object_t objects_bedroom[] = {
 	{
 		.name = "Clothes",
 		.pos = {268, 11},
-		.highlight_pos = {252, 8},
+		.highlight_pos = {251, 8},
 		.size = {44, 173},
 		.tasks = &tasks_clothes,
 	},
