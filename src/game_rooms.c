@@ -94,8 +94,22 @@ void game_rooms_draw (void) {
 	for (size_t i=0; i<rooms[cursor.room].objects_count; i++) {
 		assertf(rooms[cursor.room].objects[i].sprite->width <= rooms[cursor.room].objects[i].size.x*4 + rooms[cursor.room].objects[i].highlight_size.x,
 			"Problem with: %s", rooms[cursor.room].objects[i].name);
-		// Calculate the index of the task with pointer arithmetic
+		// Check if we need to draw the glow
+		if (cursor.selected_object == i) {
+			rdpq_sprite_blit (
+				rooms[cursor.room].objects[i].sprite,
+				rooms[cursor.room].objects[i].highlight_pos.x,
+				rooms[cursor.room].objects[i].highlight_pos.y,
+				&(rdpq_blitparms_t) {
+					.s0 = rooms[cursor.room].objects[i].size.x * OBJECT_SPRITE_COUNT,
+					.t0 = 0,
+					.width = rooms[cursor.room].objects[i].highlight_size.x,
+					.height = rooms[cursor.room].objects[i].highlight_size.y,
+				}
+			);
+		}
 		if (rooms[cursor.room].objects[i].active_task) {
+			// Calculate the index of the task with pointer arithmetic
 			task_index = (rooms[cursor.room].objects[i].active_task->urgency - rooms[cursor.room].objects[i].time_left) * ANIM_URGENCY_FRAMES
 					/ rooms[cursor.room].objects[i].active_task->urgency;
 			task_index = task_index == ANIM_URGENCY_FRAMES ? ANIM_URGENCY_FRAMES : task_index;

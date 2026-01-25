@@ -1,8 +1,6 @@
 #include "game_rooms_defs.h"
 #include "game_main.h"
 
-#define OBJECT_SPRITE_COUNT 4
-
 game_object_t objects_bedroom[] = {
 	{
 		.name = "Bed",

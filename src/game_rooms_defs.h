@@ -6,6 +6,8 @@
 #include "main.h"
 #include "game_tasks_defs.h"
 
+#define OBJECT_SPRITE_COUNT 4
+
 typedef struct game_room_s game_room_t;
 
 typedef struct game_object_s {
