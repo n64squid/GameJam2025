@@ -127,16 +127,6 @@ void game_rooms_draw (void) {
 		}
 
 	}
-
-	// Draw the arrow
-	if (cursor.mode == CURSOR_SELECT_OBJECT) {
-		rdpq_sprite_blit (
-			cursor.sprite,
-			rooms[cursor.room].objects[cursor.selected_object].pos.x + rooms[cursor.room].objects[cursor.selected_object].size.x/2 - cursor.sprite->width/2,
-			rooms[cursor.room].objects[cursor.selected_object].pos.y - cursor.sprite->height - ARROW_MARGIN,
-			NULL
-		);
-	}
 	animation_counter++;
 	return;
 	rdpq_text_printf(NULL, 1, 20, 20,
