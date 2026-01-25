@@ -74,6 +74,7 @@ void game_rooms_move(float dt) {
 
 
 void game_rooms_draw (void) {
+	uint8_t task_index;
 
 	// Draw the background
 	rdpq_sprite_blit (
@@ -91,24 +92,25 @@ void game_rooms_draw (void) {
 
 	// Draw the objects
 	for (size_t i=0; i<rooms[cursor.room].objects_count; i++) {
-		assertf(rooms[cursor.room].objects[i].sprite->width <= rooms[cursor.room].objects[i].size.x*4, "Problem with: %s", rooms[cursor.room].objects[i].name);
+		assertf(rooms[cursor.room].objects[i].sprite->width <= rooms[cursor.room].objects[i].size.x*4 + rooms[cursor.room].objects[i].highlight_size.x,
+			"Problem with: %s", rooms[cursor.room].objects[i].name);
 		// Calculate the index of the task with pointer arithmetic
-		uint8_t task_index = rooms[cursor.room].objects[i].active_task
-			? (rooms[cursor.room].objects[i].active_task->urgency - rooms[cursor.room].objects[i].time_left) * ANIM_URGENCY_FRAMES
-				/ rooms[cursor.room].objects[i].active_task->urgency + 1
-			: 0;
-		task_index = task_index == ANIM_URGENCY_FRAMES + 1 ? ANIM_URGENCY_FRAMES : task_index;
-		rdpq_sprite_blit (
-			rooms[cursor.room].objects[i].sprite,
-			rooms[cursor.room].objects[i].pos.x,
-			rooms[cursor.room].objects[i].pos.y,
-			&(rdpq_blitparms_t) {
-				.s0 = task_index * rooms[cursor.room].objects[i].size.x,
-				.t0 = 0,
-				.width = rooms[cursor.room].objects[i].size.x,
-				.height = rooms[cursor.room].objects[i].size.y,
-			}
-		);
+		if (rooms[cursor.room].objects[i].active_task) {
+			task_index = (rooms[cursor.room].objects[i].active_task->urgency - rooms[cursor.room].objects[i].time_left) * ANIM_URGENCY_FRAMES
+					/ rooms[cursor.room].objects[i].active_task->urgency;
+			task_index = task_index == ANIM_URGENCY_FRAMES ? ANIM_URGENCY_FRAMES : task_index;
+			rdpq_sprite_blit (
+				rooms[cursor.room].objects[i].sprite,
+				rooms[cursor.room].objects[i].pos.x,
+				rooms[cursor.room].objects[i].pos.y,
+				&(rdpq_blitparms_t) {
+					.s0 = task_index * rooms[cursor.room].objects[i].size.x,
+					.t0 = 0,
+					.width = rooms[cursor.room].objects[i].size.x,
+					.height = rooms[cursor.room].objects[i].size.y,
+				}
+			);
+		}
 
 	}
 
