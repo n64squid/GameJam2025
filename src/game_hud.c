@@ -97,6 +97,26 @@ void game_hud_init (void) {
 void game_hud_move (float dt) {
 }
 
+void game_hud_draw_borders (void) {
+	rdpq_sprite_blit (
+		sprites[SPRITE_BG_TOP],
+		0,
+		0,
+		NULL
+	);
+	rdpq_sprite_blit (
+		sprites[SPRITE_BG_LEFT],
+		0,
+		0,
+		NULL
+	);
+	rdpq_sprite_blit (
+		sprites[SPRITE_BG_RIGHT],
+		DISPLAY_WIDTH - GAME_DISPLAY_PADDING,
+		0,
+		NULL
+	);
+}
 void game_hud_draw (void) {
 	rdpq_set_mode_copy(true);
 	// Draw the HUD BG

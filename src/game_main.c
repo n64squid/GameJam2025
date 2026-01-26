@@ -37,6 +37,7 @@ void game_draw (void) {
 	game_robot_draw();
 	game_tasks_draw();
 	game_state_draw();
+	game_hud_draw_borders();
 }
 
 void game_close (void) {
