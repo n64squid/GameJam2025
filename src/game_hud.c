@@ -53,6 +53,8 @@
 #define GAME_HUD_AVATAR_Y (GAME_HUD_TOOLS_Y)
 #define GAME_HUD_AVATAR_WIDTH (GAME_HUD_ITEM_WIDTH_1)
 #define GAME_HUD_AVATAR_HEIGHT (GAME_HUD_ITEM_HEIGHT_3)
+#define GAME_HUD_AVATAR_FUEL_WIDTH 16
+#define GAME_HUD_AVATAR_FUEL_HEIGHT 34
 
 #define GAME_COLOR_FRAME RGBA32(0x88, 0x88, 0x88, 0)
 #define GAME_COLOR_HUD RGBA32(0xEE, 0xEE, 0xEE, 0)
@@ -63,6 +65,7 @@ typedef enum {
 	SPRITE_BUILD,
 	SPRITE_CASH,
 	SPRITE_DOT,
+	SPRITE_FUEL,
 	SPRITE_GAUGE,
 	SPRITE_TOOL,
 	SPRITE_UPGRADE_0,
@@ -77,6 +80,7 @@ void game_hud_init (void) {
 	sprites[SPRITE_BUILD] = sprite_load("rom:/images/hud/build.ci4.sprite");
 	sprites[SPRITE_CASH] = sprite_load("rom:/images/hud/cash.ci4.sprite");
 	sprites[SPRITE_DOT] = sprite_load("rom:/images/hud/dot.ci4.sprite");
+	sprites[SPRITE_FUEL] = sprite_load("rom:/images/hud/fuel.ci4.sprite");
 	sprites[SPRITE_GAUGE] = sprite_load("rom:/images/hud/gauge.ci4.sprite");
 	sprites[SPRITE_TOOL] = sprite_load("rom:/images/hud/tool.ci4.sprite");
 	sprites[SPRITE_UPGRADE_0] = sprite_load("rom:/images/hud/upgrade_0.ci4.sprite");
@@ -145,6 +149,17 @@ void game_hud_draw (void) {
 		GAME_HUD_AVATAR_X,
 		GAME_HUD_AVATAR_Y,
 		NULL
+	);
+	rdpq_sprite_blit (
+		sprites[SPRITE_FUEL],
+		GAME_HUD_AVATAR_X + GAME_HUD_PADDING_BIG,
+		GAME_HUD_AVATAR_Y + GAME_HUD_PADDING_SML,
+		&(rdpq_blitparms_t){
+			.cx = 0,
+			.cy = 0,
+			.width = GAME_HUD_AVATAR_FUEL_WIDTH,
+			.height = GAME_HUD_AVATAR_FUEL_HEIGHT,
+		}
 	);
 	return;
 }
