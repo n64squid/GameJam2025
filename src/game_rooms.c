@@ -74,6 +74,8 @@ void game_rooms_move(float dt) {
 
 
 void game_rooms_draw (void) {
+
+	rdpq_set_mode_copy(true);
 	uint8_t task_index;
 
 	// Draw the background

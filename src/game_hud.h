@@ -7,7 +7,6 @@
 
 void game_hud_init (void);
 void game_hud_move (float dt);
-void game_hud_draw_borders (void);
 void game_hud_draw (void);
 void game_hud_close (void);
 

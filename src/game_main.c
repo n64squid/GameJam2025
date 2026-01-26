@@ -32,12 +32,11 @@ void game_draw (void) {
 	rdpq_fill_rectangle(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
 	// Draw each section of the screen
-	game_hud_draw();
 	game_rooms_draw();
 	game_robot_draw();
 	game_tasks_draw();
 	game_state_draw();
-	game_hud_draw_borders();
+	game_hud_draw();
 }
 
 void game_close (void) {

@@ -95,7 +95,9 @@ void game_hud_init (void) {
 void game_hud_move (float dt) {
 }
 
-void game_hud_draw_borders (void) {
+void game_hud_draw (void) {
+	rdpq_set_mode_copy(true);
+	// Draw the HUD BG
 	rdpq_sprite_blit (
 		sprites[SPRITE_BG_TOP],
 		GAME_DISPLAY_PADDING,
@@ -114,10 +116,6 @@ void game_hud_draw_borders (void) {
 		0,
 		NULL
 	);
-}
-void game_hud_draw (void) {
-	rdpq_set_mode_copy(true);
-	// Draw the HUD BG
 	rdpq_sprite_blit (
 		sprites[SPRITE_BG_BOTTOM],
 		GAME_HUD_X,
@@ -133,6 +131,9 @@ void game_hud_draw (void) {
 			GAME_HUD_ROBOT_PARTS_Y + i * (GAME_HUD_ROBOT_PARTS_HEIGHT + GAME_HUD_PADDING_SML),
 			NULL
 		);
+		for (uint8_t j=0; j<ROBOT_PARTS_MAX_HEALTH; j++) {
+
+		}
 	}
 	// Draw the cash and gauge
 	rdpq_sprite_blit (
