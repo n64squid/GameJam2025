@@ -72,8 +72,7 @@ typedef enum {
 	SPRITE_FUEL,
 	SPRITE_GAUGE,
 	SPRITE_TOOL,
-	SPRITE_UPGRADE_0,
-	SPRITE_UPGRADE_1,
+	SPRITE_UPGRADE,
 	SPRITE_COUNT,
 } sprite_id_t;
 
@@ -90,8 +89,7 @@ void game_hud_init (void) {
 	sprites[SPRITE_FUEL] = sprite_load("rom:/images/hud/fuel.ci4.sprite");
 	sprites[SPRITE_GAUGE] = sprite_load("rom:/images/hud/gauge.ci4.sprite");
 	sprites[SPRITE_TOOL] = sprite_load("rom:/images/hud/tool.ci4.sprite");
-	sprites[SPRITE_UPGRADE_0] = sprite_load("rom:/images/hud/upgrade_0.ci4.sprite");
-	sprites[SPRITE_UPGRADE_1] = sprite_load("rom:/images/hud/upgrade_1.ci4.sprite");
+	sprites[SPRITE_UPGRADE] = sprite_load("rom:/images/hud/upgrade.ci4.sprite");
 }
 
 void game_hud_move (float dt) {
@@ -130,15 +128,9 @@ void game_hud_draw (void) {
 	// Draw the part health
 	for (uint8_t i=0; i<ROBOT_PARTS_COUNT; i++) {
 		rdpq_sprite_blit (
-			sprites[SPRITE_UPGRADE_0],
+			sprites[SPRITE_UPGRADE],
 			GAME_HUD_ROBOT_PARTS_X,
 			GAME_HUD_ROBOT_PARTS_Y + i * (GAME_HUD_ROBOT_PARTS_HEIGHT + GAME_HUD_PADDING_SML),
-			NULL
-		);
-		rdpq_sprite_blit (
-			sprites[SPRITE_UPGRADE_1],
-			GAME_HUD_ROBOT_PARTS_HP_X,
-			GAME_HUD_ROBOT_PARTS_HP_Y + i * (GAME_HUD_ROBOT_PARTS_HP_HEIGHT + GAME_HUD_PADDING_SML),
 			NULL
 		);
 	}
