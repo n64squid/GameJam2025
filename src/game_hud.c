@@ -6,7 +6,7 @@
 
 #define GAME_HUD_WIDTH (DISPLAY_WIDTH - GAME_DISPLAY_PADDING*2)
 #define GAME_HUD_HEIGHT 48
-#define GAME_HUD_X (GAME_DISPLAY_PADDING)
+#define GAME_HUD_X 0
 #define GAME_HUD_Y (DISPLAY_HEIGHT - GAME_DISPLAY_PADDING - GAME_HUD_HEIGHT)
 
 #define GAME_HUD_PADDING_HUGE 16
@@ -62,7 +62,10 @@
 #define GAME_COLOR_UI RGBA32(0x44, 0x44, 0x44, 0)
 
 typedef enum {
-	SPRITE_BG,
+	SPRITE_BG_BOTTOM,
+	SPRITE_BG_TOP,
+	SPRITE_BG_LEFT,
+	SPRITE_BG_RIGHT,
 	SPRITE_BUILD,
 	SPRITE_CASH,
 	SPRITE_DOT,
@@ -77,7 +80,10 @@ typedef enum {
 static sprite_t* sprites[SPRITE_COUNT];
 
 void game_hud_init (void) {
-	sprites[SPRITE_BG] = sprite_load("rom:/images/hud/bg.ci4.sprite");
+	sprites[SPRITE_BG_BOTTOM] = sprite_load("rom:/images/hud/bg_bottom.ci4.sprite");
+	sprites[SPRITE_BG_TOP] = sprite_load("rom:/images/hud/bg_top.ci4.sprite");
+	sprites[SPRITE_BG_LEFT] = sprite_load("rom:/images/hud/bg_left.ci4.sprite");
+	sprites[SPRITE_BG_RIGHT] = sprite_load("rom:/images/hud/bg_right.ci4.sprite");
 	sprites[SPRITE_BUILD] = sprite_load("rom:/images/hud/build.ci4.sprite");
 	sprites[SPRITE_CASH] = sprite_load("rom:/images/hud/cash.ci4.sprite");
 	sprites[SPRITE_DOT] = sprite_load("rom:/images/hud/dot.ci4.sprite");
@@ -95,7 +101,7 @@ void game_hud_draw (void) {
 	rdpq_set_mode_copy(true);
 	// Draw the HUD BG
 	rdpq_sprite_blit (
-		sprites[SPRITE_BG],
+		sprites[SPRITE_BG_BOTTOM],
 		GAME_HUD_X,
 		GAME_HUD_Y,
 		NULL
