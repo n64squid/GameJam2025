@@ -100,7 +100,7 @@ void game_hud_move (float dt) {
 void game_hud_draw_borders (void) {
 	rdpq_sprite_blit (
 		sprites[SPRITE_BG_TOP],
-		0,
+		GAME_DISPLAY_PADDING,
 		0,
 		NULL
 	);
