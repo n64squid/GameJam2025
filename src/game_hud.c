@@ -148,12 +148,17 @@ void game_hud_draw (void) {
 		sprites[SPRITE_BUILD],
 		GAME_HUD_AVATAR_X,
 		GAME_HUD_AVATAR_Y,
-		NULL
+		&(rdpq_blitparms_t){
+			.cx = 0,
+			.cy = 0,
+			.width = GAME_HUD_AVATAR_WIDTH,
+			.height = GAME_HUD_AVATAR_HEIGHT,
+		}
 	);
 	rdpq_sprite_blit (
 		sprites[SPRITE_FUEL],
 		GAME_HUD_AVATAR_X + GAME_HUD_PADDING_BIG,
-		GAME_HUD_AVATAR_Y + GAME_HUD_PADDING_SML,
+		GAME_HUD_AVATAR_Y + 3,
 		&(rdpq_blitparms_t){
 			.cx = 0,
 			.cy = 0,
