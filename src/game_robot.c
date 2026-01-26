@@ -80,6 +80,7 @@ void game_robot_init (void) {
 	robot.facing = ROBOT_FACING_LEFT;
 	robot.target = NULL;
 	robot.room = ROOM_BEDROOM;
+	robot.fuel = 0;
 }
 static inline float smoothstep(float a, float b, float t) {
 	t = t * t * (3.0f - 2.0f * t);
@@ -293,7 +294,14 @@ void game_robot_draw (void) {
 			}
 		);
 	}
-
+	rdpq_text_printf(NULL, 1,
+		20,
+		30,
+		"Fuel: %i",
+		robot.fuel
+	);
+	//robot.fuel = robot.fuel != 0 ? robot.fuel - 1 : ROBOT_MAX_FUEL;
+	return;
 	rdpq_text_printf(NULL, 1,
 		20,
 		30,
