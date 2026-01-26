@@ -66,13 +66,13 @@ typedef enum {
 	SPRITE_BG_TOP,
 	SPRITE_BG_LEFT,
 	SPRITE_BG_RIGHT,
+	SPRITE_UPGRADE,
+	SPRITE_DOT,
 	SPRITE_BUILD,
 	SPRITE_CASH,
-	SPRITE_DOT,
 	SPRITE_FUEL,
 	SPRITE_GAUGE,
 	SPRITE_TOOL,
-	SPRITE_UPGRADE,
 	SPRITE_COUNT,
 } sprite_id_t;
 
@@ -83,13 +83,13 @@ void game_hud_init (void) {
 	sprites[SPRITE_BG_TOP] = sprite_load("rom:/images/hud/bg_top.ci4.sprite");
 	sprites[SPRITE_BG_LEFT] = sprite_load("rom:/images/hud/bg_left.ci4.sprite");
 	sprites[SPRITE_BG_RIGHT] = sprite_load("rom:/images/hud/bg_right.ci4.sprite");
+	sprites[SPRITE_UPGRADE] = sprite_load("rom:/images/hud/upgrade.ci4.sprite");
+	sprites[SPRITE_DOT] = sprite_load("rom:/images/hud/dot.ci16.sprite");
 	sprites[SPRITE_BUILD] = sprite_load("rom:/images/hud/build.ci4.sprite");
 	sprites[SPRITE_CASH] = sprite_load("rom:/images/hud/cash.ci4.sprite");
-	sprites[SPRITE_DOT] = sprite_load("rom:/images/hud/dot.ci4.sprite");
 	sprites[SPRITE_FUEL] = sprite_load("rom:/images/hud/fuel.ci4.sprite");
 	sprites[SPRITE_GAUGE] = sprite_load("rom:/images/hud/gauge.ci4.sprite");
 	sprites[SPRITE_TOOL] = sprite_load("rom:/images/hud/tool.ci4.sprite");
-	sprites[SPRITE_UPGRADE] = sprite_load("rom:/images/hud/upgrade.ci4.sprite");
 }
 
 void game_hud_move (float dt) {
