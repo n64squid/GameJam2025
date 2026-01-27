@@ -57,6 +57,7 @@ typedef struct game_robot_s {
 	game_robot_part_t parts[ROBOT_PARTS_COUNT];
 	game_robot_bone_t bones[ROBOT_BONE_COUNT];
 	uint16_t fuel;
+	uint16_t money;
 	game_robot_bone_list_t bone_draw_order[ROBOT_BONE_COUNT];
 	coord_t pos;
 	game_rooms_enum_t room;

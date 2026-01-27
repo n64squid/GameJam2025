@@ -80,7 +80,8 @@ void game_robot_init (void) {
 	robot.facing = ROBOT_FACING_LEFT;
 	robot.target = NULL;
 	robot.room = ROOM_BEDROOM;
-	robot.fuel = 0;
+	robot.fuel = ROBOT_MAX_FUEL;
+	robot.money = 67;
 }
 static inline float smoothstep(float a, float b, float t) {
 	t = t * t * (3.0f - 2.0f * t);
