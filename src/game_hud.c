@@ -20,7 +20,7 @@
 
 #define GAME_HUD_ITEM_WIDTH_1 32
 #define GAME_HUD_ITEM_WIDTH_2 44
-#define GAME_HUD_ITEM_WIDTH_3 96
+#define GAME_HUD_ITEM_WIDTH_3 92
 
 #define GAME_HUD_ROBOT_PARTS_X (GAME_DISPLAY_PADDING + GAME_HUD_PADDING_HUGE)
 #define GAME_HUD_ROBOT_PARTS_Y (GAME_HUD_Y + GAME_HUD_PADDING_MID)
@@ -35,8 +35,8 @@
 #define GAME_HUD_ROBOT_PARTS_DOT_WIDTH 8
 #define GAME_HUD_ROBOT_PARTS_DOT_HEIGHT (GAME_HUD_ROBOT_PARTS_DOT_WIDTH)
 
-#define GAME_HUD_MONEY_X (GAME_HUD_ROBOT_PARTS_DOT_X + GAME_HUD_ITEM_WIDTH_2 + GAME_HUD_PADDING_BIG)
-#define GAME_HUD_MONEY_Y (GAME_HUD_ROBOT_PARTS_DOT_Y)
+#define GAME_HUD_MONEY_X (GAME_HUD_ROBOT_PARTS_X + GAME_HUD_ITEM_WIDTH_3)
+#define GAME_HUD_MONEY_Y (GAME_HUD_ROBOT_PARTS_Y)
 #define GAME_HUD_MONEY_WIDTH (GAME_HUD_ITEM_WIDTH_3)
 #define GAME_HUD_MONEY_HEIGHT (GAME_HUD_ITEM_HEIGHT_1)
 
@@ -45,14 +45,14 @@
 #define GAME_HUD_METER_WIDTH (GAME_HUD_MONEY_WIDTH)
 #define GAME_HUD_METER_HEIGHT (GAME_HUD_ITEM_HEIGHT_2)
 
-#define GAME_HUD_TOOLS_X (GAME_HUD_MONEY_X + GAME_HUD_MONEY_WIDTH + GAME_HUD_PADDING_BIG)
+#define GAME_HUD_TOOLS_X (GAME_HUD_MONEY_X + GAME_HUD_MONEY_WIDTH + GAME_HUD_PADDING_MID)
 #define GAME_HUD_TOOLS_Y (GAME_HUD_MONEY_Y)
 #define GAME_HUD_TOOLS_WIDTH (GAME_HUD_ITEM_WIDTH_2)
 #define GAME_HUD_TOOLS_HEIGHT (GAME_HUD_ITEM_HEIGHT_3)
 #define GAME_HUD_TOOLS_SPRITE_OFFSET_X (GAME_HUD_PADDING_MID + GAME_HUD_PADDING_SML)
 #define GAME_HUD_TOOLS_SPRITE_OFFSET_Y (GAME_HUD_ITEM_HEIGHT_1 + GAME_HUD_PADDING_MID + GAME_HUD_PADDING_SML)
 
-#define GAME_HUD_AVATAR_X (GAME_HUD_TOOLS_X + GAME_HUD_TOOLS_WIDTH + GAME_HUD_PADDING_MID)
+#define GAME_HUD_AVATAR_X (GAME_HUD_TOOLS_X + GAME_HUD_TOOLS_WIDTH + GAME_HUD_PADDING_BIG)
 #define GAME_HUD_AVATAR_Y (GAME_HUD_TOOLS_Y)
 #define GAME_HUD_AVATAR_WIDTH (GAME_HUD_ITEM_WIDTH_1)
 #define GAME_HUD_AVATAR_HEIGHT (GAME_HUD_ITEM_HEIGHT_3)
@@ -72,9 +72,8 @@ typedef enum {
 	SPRITE_UPGRADE,
 	SPRITE_DOT,
 	SPRITE_BUILD,
-	SPRITE_CASH,
+	SPRITE_CENTER,
 	SPRITE_FUEL,
-	SPRITE_GAUGE,
 	SPRITE_TOOL,
 	SPRITE_COUNT,
 } sprite_id_t;
@@ -89,9 +88,8 @@ void game_hud_init (void) {
 	sprites[SPRITE_UPGRADE] = sprite_load("rom:/images/hud/upgrade.ci4.sprite");
 	sprites[SPRITE_DOT] = sprite_load("rom:/images/hud/dot.ci16.sprite");
 	sprites[SPRITE_BUILD] = sprite_load("rom:/images/hud/build.ci4.sprite");
-	sprites[SPRITE_CASH] = sprite_load("rom:/images/hud/cash.ci4.sprite");
+	sprites[SPRITE_CENTER] = sprite_load("rom:/images/hud/center.ci4.sprite");
 	sprites[SPRITE_FUEL] = sprite_load("rom:/images/hud/fuel.ci4.sprite");
-	sprites[SPRITE_GAUGE] = sprite_load("rom:/images/hud/gauge.ci4.sprite");
 	sprites[SPRITE_TOOL] = sprite_load("rom:/images/hud/tool.ci4.sprite");
 }
 
@@ -151,15 +149,9 @@ void game_hud_draw (void) {
 	}
 	// Draw the cash and gauge
 	rdpq_sprite_blit (
-		sprites[SPRITE_CASH],
+		sprites[SPRITE_CENTER],
 		GAME_HUD_MONEY_X,
 		GAME_HUD_MONEY_Y,
-		NULL
-	);
-	rdpq_sprite_blit (
-		sprites[SPRITE_GAUGE],
-		GAME_HUD_METER_X,
-		GAME_HUD_METER_Y,
 		NULL
 	);
 
