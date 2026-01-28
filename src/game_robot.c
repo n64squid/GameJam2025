@@ -32,17 +32,17 @@ game_robot_t robot = {
 		ROBOT_BONE_TABLE(X)
 	},
 	.bone_draw_order = {
-		ROBOT_BONE_ARM_LOWER_R,
 		ROBOT_BONE_ARM_UPPER_R,
-		ROBOT_BONE_LEG_LOWER_R,
+		ROBOT_BONE_ARM_LOWER_R,
 		ROBOT_BONE_LEG_UPPER_R,
+		ROBOT_BONE_LEG_LOWER_R,
 		ROBOT_BONE_TORSO,
 		ROBOT_BONE_JAW,
 		ROBOT_BONE_HEAD,
-		ROBOT_BONE_ARM_LOWER_L,
 		ROBOT_BONE_ARM_UPPER_L,
-		ROBOT_BONE_LEG_LOWER_L,
+		ROBOT_BONE_ARM_LOWER_L,
 		ROBOT_BONE_LEG_UPPER_L,
+		ROBOT_BONE_LEG_LOWER_L,
 	},
 	.pos = ROBOT_POS_START,
 	.room = ROOM_BEDROOM,
@@ -77,7 +77,7 @@ void game_robot_init (void) {
 	robot.animation = &anim_standing;
 	robot.animation_keyframe = 0;
 	robot.animation_frame = 0;
-	robot.facing = ROBOT_FACING_LEFT;
+	robot.facing = ROBOT_FACING_RIGHT;
 	robot.target = NULL;
 	robot.room = ROOM_BEDROOM;
 	robot.fuel = ROBOT_MAX_FUEL;
@@ -131,6 +131,7 @@ static inline coord_t coord_hermite(coord_t p0, coord_t m0, coord_t p1, coord_t 
 	};
 }
 
+// Calculates the interpolation between keyframes
 void game_robot_animate (void) {
 	uint8_t next_keyframe = (robot.animation_keyframe + 1) % robot.animation->frame_count;
 	uint8_t duration = robot.animation->frames[robot.animation_keyframe].duration;
@@ -188,6 +189,7 @@ void game_robot_animate (void) {
 	}
 }
 
+// Calculates the bone positions
 void game_robot_calculate_bone(game_robot_bone_list_t bone_id, coord_t parent_pos, float parent_theta) {
 	game_robot_bone_t *bone = &robot.bones[bone_id];
 
