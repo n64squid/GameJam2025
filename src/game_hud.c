@@ -81,6 +81,17 @@ typedef enum {
 	SPRITE_CENTER,
 	SPRITE_FUEL,
 	SPRITE_TOOL,
+	SPRITE_BTN_A,
+	SPRITE_BTN_B,
+	SPRITE_BTN_C_DOWN,
+	SPRITE_BTN_C_LEFT,
+	SPRITE_BTN_C_RIGHT,
+	SPRITE_BTN_C_UP,
+	SPRITE_BTN_D_LEFT,
+	SPRITE_BTN_D_RIGHT,
+	SPRITE_BTN_L,
+	SPRITE_BTN_R,
+	SPRITE_BTN_Z,
 	SPRITE_COUNT,
 } sprite_id_t;
 
@@ -97,6 +108,17 @@ void game_hud_init (void) {
 	sprites[SPRITE_CENTER] = sprite_load("rom:/images/hud/center.ci4.sprite");
 	sprites[SPRITE_FUEL] = sprite_load("rom:/images/hud/fuel.ci4.sprite");
 	sprites[SPRITE_TOOL] = sprite_load("rom:/images/hud/tool.ci4.sprite");
+	sprites[SPRITE_BTN_A] = sprite_load("rom:/images/icons/button_a.ci4.sprite");
+	sprites[SPRITE_BTN_B] = sprite_load("rom:/images/icons/button_a.ci4.sprite");
+	sprites[SPRITE_BTN_C_DOWN] = sprite_load("rom:/images/icons/button_c_down.ci4.sprite");
+	sprites[SPRITE_BTN_C_LEFT] = sprite_load("rom:/images/icons/button_c_left.ci4.sprite");
+	sprites[SPRITE_BTN_C_RIGHT] = sprite_load("rom:/images/icons/button_c_right.ci4.sprite");
+	sprites[SPRITE_BTN_C_UP] = sprite_load("rom:/images/icons/button_c_up.ci4.sprite");
+	sprites[SPRITE_BTN_D_LEFT] = sprite_load("rom:/images/icons/button_d_left.ci4.sprite");
+	sprites[SPRITE_BTN_D_RIGHT] = sprite_load("rom:/images/icons/button_d_right.ci4.sprite");
+	sprites[SPRITE_BTN_L] = sprite_load("rom:/images/icons/button_l.ci4.sprite");
+	sprites[SPRITE_BTN_R] = sprite_load("rom:/images/icons/button_r.ci4.sprite");
+	sprites[SPRITE_BTN_Z] = sprite_load("rom:/images/icons/button_z.ci4.sprite");
 }
 
 void game_hud_move (float dt) {
