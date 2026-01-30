@@ -87,6 +87,9 @@ typedef enum {
 	SPRITE_BTN_L,
 	SPRITE_BTN_R,
 	SPRITE_BTN_Z,
+	SPRITE_TEXT_HEAD,
+	SPRITE_TEXT_ARMS,
+	SPRITE_TEXT_LEGS,
 	SPRITE_COUNT,
 } sprite_id_t;
 
@@ -155,6 +158,9 @@ void game_hud_init (void) {
 	sprites[SPRITE_BTN_L] = sprite_load("rom:/images/icons/button_l.ci4.sprite");
 	sprites[SPRITE_BTN_R] = sprite_load("rom:/images/icons/button_r.ci4.sprite");
 	sprites[SPRITE_BTN_Z] = sprite_load("rom:/images/icons/button_z.ci4.sprite");
+	sprites[SPRITE_TEXT_HEAD] = sprite_load("rom:/images/hud/text_head.ci4.sprite");
+	sprites[SPRITE_TEXT_ARMS] = sprite_load("rom:/images/hud/text_arms.ci4.sprite");
+	sprites[SPRITE_TEXT_LEGS] = sprite_load("rom:/images/hud/text_legs.ci4.sprite");
 }
 
 void game_hud_move (float dt) {
@@ -196,12 +202,13 @@ void game_hud_draw (void) {
 			GAME_HUD_ROBOT_PARTS_Y + i * (GAME_HUD_ROBOT_PARTS_HEIGHT + GAME_HUD_PADDING_SML),
 			NULL
 		);
-		rdpq_text_printf(NULL, 1,
-			GAME_HUD_ROBOT_PARTS_TEXT_X,
-			GAME_HUD_ROBOT_PARTS_TEXT_Y + i * (GAME_HUD_ROBOT_PARTS_HEIGHT + GAME_HUD_PADDING_SML),
-			"%s",
-			robot.parts[i].name
+		rdpq_sprite_blit (
+			sprites[SPRITE_TEXT_HEAD + i],
+			GAME_HUD_ROBOT_PARTS_X,
+			GAME_HUD_ROBOT_PARTS_Y + i * (GAME_HUD_ROBOT_PARTS_HEIGHT + GAME_HUD_PADDING_SML),
+			NULL
 		);
+
 		for (uint8_t j=0; j<ROBOT_PARTS_MAX_HEALTH; j++) {
 			rdpq_sprite_blit (
 				sprites[SPRITE_DOT],
