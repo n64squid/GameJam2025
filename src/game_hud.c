@@ -122,6 +122,7 @@ static const control_sprite_list_t control_sprites[] = {
 };
 
 static sprite_t* sprites[SPRITE_COUNT];
+uint8_t current_menu = 0;
 
 void game_hud_init (void) {
 	sprites[SPRITE_BG_BOTTOM] = sprite_load("rom:/images/hud/bg_bottom.ci4.sprite");
@@ -220,6 +221,16 @@ void game_hud_draw (void) {
 		"CASH: %i",
 		robot.money
 	);
+
+	// Draw the controls
+	for (uint8_t i=0; i<control_sprites[current_menu].count; i++) {
+		rdpq_sprite_blit (
+			sprites[control_sprites[current_menu].data[i]],
+			GAME_HUD_MONEY_X + GAME_HUD_PADDING_MID + i * ((GAME_HUD_MONEY_WIDTH - GAME_HUD_PADDING_BIG) / control_sprites[current_menu].count),
+			GAME_HUD_MONEY_Y + 15,
+			NULL
+		);
+	}
 
 	// Draw the toolbox
 	rdpq_sprite_blit (
