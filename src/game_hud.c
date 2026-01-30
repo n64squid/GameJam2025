@@ -91,34 +91,34 @@ typedef enum {
 } sprite_id_t;
 
 typedef struct {
-    const uint8_t *data;
-    size_t count;
+	const uint8_t *data;
+	size_t count;
 } control_sprite_list_t;
 
 static const control_sprite_list_t control_sprites[] = {
-    {
-        .data = (uint8_t[]){
-            SPRITE_BTN_D_LEFT,
-            SPRITE_BTN_D_RIGHT,
-            SPRITE_BTN_C_LEFT,
-            SPRITE_BTN_C_RIGHT,
-            SPRITE_BTN_L,
-            SPRITE_BTN_R,
-        },
-        .count = 6,
-    },
-    {
-        .data = (uint8_t[]){
-            SPRITE_BTN_A,
-            SPRITE_BTN_B,
-            SPRITE_BTN_Z,
-            SPRITE_BTN_C_DOWN,
-            SPRITE_BTN_C_LEFT,
-            SPRITE_BTN_C_RIGHT,
-            SPRITE_BTN_C_UP,
-        },
-        .count = 7,
-    },
+	{
+		.data = (uint8_t[]){
+			SPRITE_BTN_D_LEFT,
+			SPRITE_BTN_D_RIGHT,
+			SPRITE_BTN_C_LEFT,
+			SPRITE_BTN_C_RIGHT,
+			SPRITE_BTN_L,
+			SPRITE_BTN_R,
+		},
+		.count = 6,
+	},
+	{
+	.data = (uint8_t[]){
+			SPRITE_BTN_A,
+			SPRITE_BTN_B,
+			SPRITE_BTN_Z,
+			SPRITE_BTN_C_DOWN,
+			SPRITE_BTN_C_LEFT,
+			SPRITE_BTN_C_RIGHT,
+			SPRITE_BTN_C_UP,
+		},
+		.count = 7,
+	},
 };
 
 static sprite_t* sprites[SPRITE_COUNT];
