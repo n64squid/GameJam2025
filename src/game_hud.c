@@ -92,6 +92,7 @@ typedef enum {
 
 typedef struct {
 	const uint8_t *data;
+	const uint8_t *offsets;
 	size_t count;
 } control_sprite_list_t;
 
@@ -104,6 +105,14 @@ static const control_sprite_list_t control_sprites[] = {
 			SPRITE_BTN_C_RIGHT,
 			SPRITE_BTN_L,
 			SPRITE_BTN_R,
+		},
+		.offsets = (uint8_t[]){
+			5,
+			16,
+			32,
+			44,
+			60,
+			72,
 		},
 		.count = 6,
 	},
@@ -226,7 +235,7 @@ void game_hud_draw (void) {
 	for (uint8_t i=0; i<control_sprites[current_menu].count; i++) {
 		rdpq_sprite_blit (
 			sprites[control_sprites[current_menu].data[i]],
-			GAME_HUD_MONEY_X + GAME_HUD_PADDING_MID + i * ((GAME_HUD_MONEY_WIDTH - GAME_HUD_PADDING_BIG) / control_sprites[current_menu].count),
+			GAME_HUD_MONEY_X + control_sprites[current_menu].offsets[i],
 			GAME_HUD_MONEY_Y + 15,
 			NULL
 		);
