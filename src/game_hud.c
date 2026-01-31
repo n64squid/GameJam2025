@@ -55,8 +55,8 @@
 #define GAME_HUD_TOOLS_Y (GAME_HUD_MONEY_Y)
 #define GAME_HUD_TOOLS_WIDTH (GAME_HUD_ITEM_WIDTH_2)
 #define GAME_HUD_TOOLS_HEIGHT (GAME_HUD_ITEM_HEIGHT_3)
-#define GAME_HUD_TOOLS_SPRITE_OFFSET_X (GAME_HUD_PADDING_MID + GAME_HUD_PADDING_SML)
-#define GAME_HUD_TOOLS_SPRITE_OFFSET_Y (GAME_HUD_ITEM_HEIGHT_1 + GAME_HUD_PADDING_MID + GAME_HUD_PADDING_SML)
+#define GAME_HUD_TOOLS_SPRITE_OFFSET_X (GAME_HUD_PADDING_MID)
+#define GAME_HUD_TOOLS_SPRITE_OFFSET_Y (GAME_HUD_ITEM_HEIGHT_1 + GAME_HUD_PADDING_SML)
 #define GAME_HUD_TOOLS_TEXT_X (GAME_HUD_TOOLS_X)
 #define GAME_HUD_TOOLS_TEXT_Y (GAME_HUD_TOOLS_Y + GAME_HUD_PADDING_SML)
 
@@ -82,7 +82,8 @@ typedef enum {
 	SPRITE_BUILD,
 	SPRITE_CENTER,
 	SPRITE_FUEL,
-	SPRITE_TOOL,
+	SPRITE_TOOL_PANEL,
+	SPRITE_TOOL_BG,
 	SPRITE_BTN_A,
 	SPRITE_BTN_B,
 	SPRITE_BTN_C_DOWN,
@@ -155,7 +156,8 @@ void game_hud_init (void) {
 	sprites[SPRITE_BUILD] = sprite_load("rom:/images/hud/build.ci4.sprite");
 	sprites[SPRITE_CENTER] = sprite_load("rom:/images/hud/center.ci4.sprite");
 	sprites[SPRITE_FUEL] = sprite_load("rom:/images/hud/fuel.ci4.sprite");
-	sprites[SPRITE_TOOL] = sprite_load("rom:/images/hud/tool.ci4.sprite");
+	sprites[SPRITE_TOOL_PANEL] = sprite_load("rom:/images/hud/tool_panel.ci4.sprite");
+	sprites[SPRITE_TOOL_BG] = sprite_load("rom:/images/hud/tool_bg.ci4.sprite");
 	sprites[SPRITE_BTN_A] = sprite_load("rom:/images/icons/button_a.ci4.sprite");
 	sprites[SPRITE_BTN_B] = sprite_load("rom:/images/icons/button_a.ci4.sprite");
 	sprites[SPRITE_BTN_C_DOWN] = sprite_load("rom:/images/icons/button_c_down.ci4.sprite");
@@ -275,21 +277,27 @@ void game_hud_draw (void) {
 
 	// Draw the toolbox
 	rdpq_sprite_blit (
-		sprites[SPRITE_TOOL],
+		sprites[SPRITE_TOOL_PANEL],
 		GAME_HUD_TOOLS_X,
 		GAME_HUD_TOOLS_Y,
-		NULL
-	);
-	rdpq_sprite_blit (
-		tools[current_tool].sprite,
-		GAME_HUD_TOOLS_X + GAME_HUD_TOOLS_SPRITE_OFFSET_X,
-		GAME_HUD_TOOLS_Y + GAME_HUD_TOOLS_SPRITE_OFFSET_Y,
 		NULL
 	);
 	rdpq_sprite_blit (
 		sprites[SPRITE_TEXT_TOOLS],
 		GAME_HUD_TOOLS_TEXT_X,
 		GAME_HUD_TOOLS_TEXT_Y,
+		NULL
+	);
+	/*
+		Light blue: no tool, highlighted
+		Light green: purchased/equipped tool, highlighted
+		Dark blue: no tool, not highlighted
+		Dark green: purchased/equipped tool, not highlighted
+	*/
+	rdpq_sprite_blit (
+		sprites[SPRITE_TOOL_BG],
+		GAME_HUD_TOOLS_X + GAME_HUD_TOOLS_SPRITE_OFFSET_X,
+		GAME_HUD_TOOLS_Y + GAME_HUD_TOOLS_SPRITE_OFFSET_Y,
 		NULL
 	);
 
