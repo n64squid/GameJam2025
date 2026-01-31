@@ -44,6 +44,13 @@
 #define GAME_HUD_MONEY_TEXT_X (GAME_HUD_MONEY_X + GAME_HUD_PADDING_MID)
 #define GAME_HUD_MONEY_TEXT_Y (GAME_HUD_ROBOT_PARTS_TEXT_Y)
 
+#define GAME_HUD_CONTROLS_X (GAME_HUD_MONEY_X)
+#define GAME_HUD_CONTROLS_Y (GAME_HUD_MONEY_Y + 15)
+#define GAME_HUD_CONTROLS_TEXT_X (GAME_HUD_CONTROLS_X)
+#define GAME_HUD_CONTROLS_TEXT_Y (GAME_HUD_CONTROLS_Y + 13)
+#define GAME_HUD_CONTROLS_TEXT_WIDTH (GAME_HUD_ITEM_WIDTH_3 - GAME_HUD_PADDING_BIG)
+#define GAME_HUD_CONTROLS_TEXT_HEIGHT (GAME_HUD_PADDING_BIG)
+
 #define GAME_HUD_TOOLS_X (GAME_HUD_MONEY_X + GAME_HUD_MONEY_WIDTH + GAME_HUD_PADDING_MID)
 #define GAME_HUD_TOOLS_Y (GAME_HUD_MONEY_Y)
 #define GAME_HUD_TOOLS_WIDTH (GAME_HUD_ITEM_WIDTH_2)
@@ -246,21 +253,21 @@ void game_hud_draw (void) {
 	for (uint8_t i=0; i<control_sprites[current_menu].count; i++) {
 		rdpq_sprite_blit (
 			sprites[control_sprites[current_menu].data[i]],
-			GAME_HUD_MONEY_X + control_sprites[current_menu].offsets[i],
-			GAME_HUD_MONEY_Y + 15,
+			GAME_HUD_CONTROLS_X + control_sprites[current_menu].offsets[i],
+			GAME_HUD_CONTROLS_Y,
 			NULL
 		);
 	}
 
 	rdpq_sprite_blit (
 		sprites[SPRITE_TEXT_CONTROLS],
-		GAME_HUD_MONEY_X,
-		GAME_HUD_MONEY_Y + 27,
+		GAME_HUD_CONTROLS_TEXT_X,
+		GAME_HUD_CONTROLS_TEXT_Y,
 		&(rdpq_blitparms_t){
 			.s0 = 0,
 			.t0 = 0,
-			.width = 84,
-			.height = 8,
+			.width = GAME_HUD_CONTROLS_TEXT_WIDTH,
+			.height = GAME_HUD_CONTROLS_TEXT_HEIGHT,
 		}
 	);
 
