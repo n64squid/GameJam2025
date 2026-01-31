@@ -90,6 +90,7 @@ typedef enum {
 	SPRITE_TEXT_HEAD,
 	SPRITE_TEXT_ARMS,
 	SPRITE_TEXT_LEGS,
+	SPRITE_TEXT_CONTROLS,
 	SPRITE_COUNT,
 } sprite_id_t;
 
@@ -161,6 +162,7 @@ void game_hud_init (void) {
 	sprites[SPRITE_TEXT_HEAD] = sprite_load("rom:/images/hud/text_head.ci4.sprite");
 	sprites[SPRITE_TEXT_ARMS] = sprite_load("rom:/images/hud/text_arms.ci4.sprite");
 	sprites[SPRITE_TEXT_LEGS] = sprite_load("rom:/images/hud/text_legs.ci4.sprite");
+	sprites[SPRITE_TEXT_CONTROLS] = sprite_load("rom:/images/hud/text-controls.ci4.sprite");
 }
 
 void game_hud_move (float dt) {
