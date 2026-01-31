@@ -226,19 +226,21 @@ void game_hud_draw (void) {
 			);
 		}
 	}
-	// Draw the cash and gauge
+	// Draw the cash and controls
 	rdpq_sprite_blit (
 		sprites[SPRITE_CENTER],
 		GAME_HUD_MONEY_X,
 		GAME_HUD_MONEY_Y,
 		NULL
 	);
+	/*
 	rdpq_text_printf(NULL, 1,
 		GAME_HUD_MONEY_TEXT_X,
 		GAME_HUD_MONEY_TEXT_Y,
 		"CASH: %i",
 		robot.money
 	);
+	*/
 
 	// Draw the controls
 	for (uint8_t i=0; i<control_sprites[current_menu].count; i++) {
@@ -249,6 +251,18 @@ void game_hud_draw (void) {
 			NULL
 		);
 	}
+
+	rdpq_sprite_blit (
+		sprites[SPRITE_TEXT_CONTROLS],
+		GAME_HUD_MONEY_X,
+		GAME_HUD_MONEY_Y + 27,
+		&(rdpq_blitparms_t){
+			.s0 = 0,
+			.t0 = 0,
+			.width = 84,
+			.height = 8,
+		}
+	);
 
 	// Draw the toolbox
 	rdpq_sprite_blit (
